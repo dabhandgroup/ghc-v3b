@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Careers — GHC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0d0d0d;--bg2:#111;--text:#eeebe3;--muted:rgba(238,235,227,.62);--muted2:rgba(238,235,227,.36);--border:rgba(238,235,227,.1);--border2:rgba(238,235,227,.18);--ff:'Sora',sans-serif;--fb:'DM Sans',sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none;}
+.cursor,.cursor-ring{position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);border-radius:50%;}
+.cursor{width:7px;height:7px;background:var(--text);mix-blend-mode:difference;}
+.cursor-ring{width:34px;height:34px;border:1px solid rgba(238,235,227,.4);z-index:99998;transition:width .3s,height .3s;mix-blend-mode:difference;}
+.cursor-ring.h{width:52px;height:52px;opacity:.4;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.028;pointer-events:none;z-index:9998;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 44px;background:rgba(13,13,13,.92);backdrop-filter:blur(28px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;text-decoration:none;}
+.lsvg{height:22px;display:block;}
+.lion{height:26px;display:none;}
+.nright{display:flex;align-items:center;gap:20px;}
+.bk{font-family:var(--ff);font-size:11.5px;font-weight:300;color:var(--muted);text-decoration:none;letter-spacing:.8px;display:flex;align-items:center;gap:8px;transition:color .2s;}
+.bk:hover{color:var(--text);}
+.ncta{font-family:var(--ff);font-size:11.5px;font-weight:400;color:var(--bg);background:var(--text);padding:9px 20px;border-radius:3px;text-decoration:none;transition:opacity .2s;}
+.ncta:hover{opacity:.82;}
+.ph{padding:160px 44px 80px;border-bottom:1px solid var(--border);}
+.ph .ct{max-width:1280px;margin:0 auto;}
+.ey{font-family:var(--ff);font-size:10px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);margin-bottom:20px;display:flex;align-items:center;gap:14px;}
+.ey::before{content:'';width:24px;height:1px;background:currentColor;}
+.ph h1{font-family:var(--ff);font-weight:200;font-size:clamp(48px,7vw,96px);letter-spacing:-3px;line-height:.92;margin-bottom:28px;padding-bottom:.06em;}
+.ph>div>p{font-size:17px;color:var(--muted);max-width:560px;line-height:1.88;}
+.fbar{padding:24px 44px;border-bottom:1px solid var(--border);background:var(--bg2);}
+.fbar .ct{max-width:1280px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;}
+.fb{font-family:var(--ff);font-size:10px;font-weight:300;letter-spacing:1px;padding:7px 16px;border:1px solid var(--border);border-radius:2px;background:transparent;color:var(--muted2);cursor:none;transition:all .2s;text-transform:uppercase;}
+.fb.act,.fb:hover{border-color:var(--border2);color:var(--text);background:rgba(238,235,227,.04);}
+.js{padding:0 44px 120px;background:var(--bg);}
+.js .ct{max-width:1280px;margin:0 auto;}
+.dl{font-family:var(--ff);font-size:10px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);padding:44px 0 18px;border-bottom:1px solid var(--border);}
+.jc{display:block;padding:28px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;cursor:none;transition:padding-left .35s cubic-bezier(.16,1,.3,1);}
+.jc:hover{padding-left:16px;}
+.jc-t{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:10px;}
+.jc-ti{font-family:var(--ff);font-weight:300;font-size:clamp(16px,2.2vw,22px);letter-spacing:-.4px;}
+.jc-ar{color:var(--muted2);transition:color .2s,transform .3s cubic-bezier(.16,1,.3,1);flex-shrink:0;}
+.jc:hover .jc-ar{color:var(--text);transform:translateX(6px);}
+.jc-m{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px;}
+.tg{font-family:var(--ff);font-size:9px;font-weight:300;letter-spacing:1px;padding:3px 9px;border:1px solid var(--border);border-radius:2px;color:var(--muted2);text-transform:uppercase;}
+.jc-d{font-size:14px;color:var(--muted);line-height:1.78;max-width:680px;}
+/* PERKS */
+.perks{padding:80px 44px;background:var(--bg2);border-top:1px solid var(--border);}
+.perks .ct{max-width:1280px;margin:0 auto;}
+.perks h2{font-family:var(--ff);font-weight:200;font-size:clamp(32px,4vw,54px);letter-spacing:-2px;margin-bottom:52px;}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);}
+.pk{background:var(--bg);padding:36px 32px;}
+.pk-i{font-size:22px;margin-bottom:16px;}
+.pk h4{font-family:var(--ff);font-weight:400;font-size:14px;margin-bottom:10px;letter-spacing:-.2px;}
+.pk p{font-size:13.5px;color:var(--muted);line-height:1.72;}
+/* JOB OVERLAY */
+.jdo{display:none;position:fixed;inset:0;z-index:600;background:rgba(13,13,13,.96);backdrop-filter:blur(24px);overflow-y:auto;}
+.jdo.open{display:flex;}
+.jd-in{max-width:680px;margin:auto;padding:100px 44px 80px;position:relative;}
+.jd-cls{position:fixed;top:24px;right:44px;background:none;border:none;cursor:none;font-family:var(--ff);font-size:11px;font-weight:300;letter-spacing:1.5px;color:var(--muted2);text-transform:uppercase;display:flex;align-items:center;gap:8px;transition:color .2s;z-index:10;}
+.jd-cls:hover{color:var(--text);}
+.jd-ey{font-family:var(--ff);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);margin-bottom:14px;}
+.jd-ti{font-family:var(--ff);font-weight:200;font-size:clamp(32px,5vw,56px);letter-spacing:-2px;margin-bottom:24px;line-height:.95;}
+.jd-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.jd-b h3{font-family:var(--ff);font-weight:400;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-bottom:14px;margin-top:32px;}
+.jd-b p{font-size:15px;color:var(--muted);line-height:1.85;}
+.jd-b ul{padding-left:20px;display:flex;flex-direction:column;gap:7px;margin-top:8px;}
+.jd-b li{font-size:14.5px;color:var(--muted);line-height:1.75;}
+.jd-ap{margin-top:48px;padding-top:32px;border-top:1px solid var(--border);}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff);font-weight:400;font-size:12px;letter-spacing:1px;text-decoration:none;border:none;cursor:none;white-space:nowrap;}
+.btn-s{background:var(--text);color:var(--bg);padding:13px 28px;border-radius:3px;transition:opacity .2s;}
+.btn-s:hover{opacity:.82;}
+footer{background:#080808;padding:48px 44px 32px;border-top:1px solid var(--border);}
+.fb2{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;}
+.fb2 p{font-family:var(--ff);font-size:11px;font-weight:300;color:rgba(238,235,227,.28);}
+.fs{display:flex;gap:24px;}
+.fs a{font-family:var(--ff);font-size:11px;font-weight:300;color:rgba(238,235,227,.36);text-decoration:none;transition:color .2s;}
+.fs a:hover{color:var(--muted);}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.rv.in{opacity:1;transform:none;}
+.d1{transition-delay:.07s;}.d2{transition-delay:.14s;}.d3{transition-delay:.21s;}
+@media(max-width:768px){
+  nav{padding:0 22px;}
+  .lsvg{display:none;}.lion{display:block;}
+  .ph,.fbar,.js,.perks{padding-left:22px;padding-right:22px;}
+  .pg{grid-template-columns:1fr;}
+  .jd-in{padding:80px 22px 60px;}
+  .jd-cls{right:22px;}
+  .fb2{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cr"></div>
+<div class="cursor-ring" id="crr"></div>
+
+<!-- JOB OVERLAY -->
+<div class="jdo" id="jdo">
+  <div class="jd-in" id="jdContent"></div>
+  <button class="jd-cls" onclick="closeJob()">← Back to roles</button>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg class="lsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1893.8828 640.0001"><path d="M533.3042,394.3157h-239.9053v-148.6316h239.9053c7.4907,0,14.1826-4.6809,16.7505-11.718,2.5679-7.0361.4653-14.9277-5.2646-19.7522L301.8242,9.6092c-15.2139-12.8123-37.3003-12.8123-52.5132,0L14.5063,207.3414c-9.2192,7.7625-14.5063,19.1274-14.5063,31.1799v162.9573c0,12.0525,5.2871,23.4175,14.5054,31.1792l234.8052,197.7329c7.6079,6.407,16.9307,9.6101,26.2573,9.6094,9.3228-.001,18.6504-3.2041,26.2563-9.6094l242.9658-204.6045c5.73-4.8247,7.8325-12.7163,5.2646-19.7524-2.5679-7.0371-9.2598-11.718-16.7505-11.718ZM484.4478,210.0218h-191.0488V49.1373l191.0488,160.8845ZM257.7368,49.1378v160.884H66.6885L257.7368,49.1378ZM35.6626,245.6841h222.0742v148.6316H35.6626v-148.6316ZM66.6875,429.9781h191.0493v160.8848l-191.0493-160.8848ZM293.3989,590.8629v-160.8848h191.0488l-191.0488,160.8848Z" fill="var(--text)"/><path d="M1417.0796,160h-25.5534c-7.4942,0-13.5904,6.0963-13.5904,13.5904v125.1195h-193.1423v-125.1195c0-7.4942-6.0963-13.5904-13.5904-13.5904h-25.5579c-7.4942,0-13.5904,6.0963-13.5904,13.5904v292.8191c0,7.4942,6.0963,13.5904,13.5904,13.5904h25.5579c7.4942,0,13.5904-6.0963,13.5904-13.5904v-126.6487h193.1423v126.6487c0,7.4942,6.0963,13.5904,13.5904,13.5904h25.5534c7.4942,0,13.5904-6.0963,13.5904-13.5904V173.5904c0-7.4942-6.0963-13.5904-13.5904-13.5904Z" fill="var(--text)"/><path d="M1880.2923,201.0464c7.4942,0,13.5904-6.0963,13.5904-13.5904v-13.8655c0-7.4942-6.0963-13.5904-13.5904-13.5904h-217.58c-34.3061,0-62.4892,5.0816-83.7649,15.1036-62.2507,29.3041-67.0884,118.5088-67.0884,145.151,0,40.849,7.0154,96.2281,40.4354,128.0815,28.2358,26.9263,57.1209,31.664,107.3729,31.664h220.625c7.4942,0,13.5904-6.0963,13.5904-13.5904v-13.87c0-7.4942-6.0963-13.5904-13.5904-13.5904h-206.4013c-36.4713,0-62.9528-9.9604-78.7075-29.6042-15.4537-19.2588-22.9666-49.8992-22.9666-93.6726,0-40.4381,7.4879-68.9008,22.8916-87.0136,15.5886-18.3227,41.2402-27.6123,76.2431-27.6123h208.9407Z" fill="var(--text)"/><path d="M1025.4929,160h-243.5023c-34.3061,0-62.4892,5.0816-83.7658,15.1036-62.2507,29.3041-67.0884,118.5088-67.0884,145.151,0,40.849,7.0154,96.2281,40.4354,128.0815,28.2367,26.9263,57.1218,31.664,107.3738,31.664h246.5473c7.4942,0,13.5904-6.0963,13.5904-13.5904v-155.1239c0-7.4942-6.0963-13.5904-13.5904-13.5904h-230.3165v41.0509h191.1727v100.203h-193.1798c-36.4722,0-62.9528-9.9604-78.7084-29.6042-15.4537-19.2597-22.9666-49.901-22.9666-93.6726,0-40.4354,7.4879-68.8981,22.8907-87.0136,15.5895-18.3227,41.2411-27.6123,76.244-27.6123h234.864c7.4942,0,13.5904-6.0963,13.5904-13.5904v-13.8655c0-7.4942-6.0963-13.5904-13.5904-13.5904Z" fill="var(--text)"/></svg>
+    <svg class="lion" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1678 1948.556"><path d="M1623.7086,1200.541h-730.4208v-452.5265h730.4208c22.8056,0,43.1792-14.2516,50.9981-35.6769,7.8186-21.4223,1.4168-45.4493-16.0285-60.1379L918.9396,29.2563c-46.3204-39.0084-113.5659-39.0084-159.8819,0L44.167,631.2754c-28.0691,23.6337-44.167,58.2358-44.167,94.931v496.1427c0,36.6952,16.098,71.2973,44.1641,94.9288l714.8914,602.0213c23.1632,19.5068,51.5482,29.2591,79.9435,29.2569,28.385-.003,56.7833-9.7553,79.9406-29.2569l739.7386-622.9426c17.4452-14.6894,23.847-38.7163,16.0285-60.1386-7.8189-21.4253-28.1925-35.6769-50.9981-35.6769ZM1474.9593,639.4362h-581.6715V149.6042l581.6715,489.832ZM784.7095,149.6057v489.8305H203.041L784.7095,149.6057ZM108.5783,748.0145h676.1313v452.5265H108.5783v-452.5265ZM203.0387,1309.1193h581.6708v489.8327l-581.6708-489.8327ZM893.2878,1798.952v-489.8327h581.6715l-581.6715,489.8327Z" fill="var(--text)"/></svg>
+  </a>
+  <div class="nright">
+    <a href="index.html" class="bk">← Back to GHC</a>
+    <a href="mailto:careers@ghc.io" class="ncta">Apply Now</a>
+  </div>
+</nav>
+
+<div class="ph">
+  <div class="ct">
+    <div class="ey rv">Work with us</div>
+    <h1 class="rv d1">Build the<br/>next wave.</h1>
+    <p class="rv d2">We're a small, relentlessly ambitious team shipping products that redefine industries. If you want to do the best work of your career, you're in the right place.</p>
+  </div>
+</div>
+
+<div class="fbar">
+  <div class="ct">
+    <button class="fb act" onclick="filterJobs('all',this)">All roles</button>
+    <button class="fb" onclick="filterJobs('eng',this)">Engineering</button>
+    <button class="fb" onclick="filterJobs('pd',this)">Product &amp; Design</button>
+    <button class="fb" onclick="filterJobs('gr',this)">Growth</button>
+    <button class="fb" onclick="filterJobs('st',this)">Studio &amp; Ops</button>
+  </div>
+</div>
+
+<div class="js">
+  <div class="ct" id="jlist">
+    <div class="dl rv" data-d="eng">Engineering</div>
+    <a class="jc rv d1" data-d="eng" id="fse" onclick="openJob('fse');return false;" href="#fse"><div class="jc-t"><span class="jc-ti">Senior Full-Stack Engineer</span><svg class="jc-ar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div class="jc-m"><span class="tg">Royale</span><span class="tg">Remote</span><span class="tg">Full-time</span><span class="tg">$180–230K AUD</span></div><p class="jc-d">Own the end-to-end delivery of Royale's core gaming infrastructure. You'll architect and ship features used by tens of thousands of concurrent users globally.</p></a>
+    <a class="jc rv d1" data-d="eng" id="ml" onclick="openJob('ml');return false;" href="#ml"><div class="jc-t"><span class="jc-ti">AI / ML Engineer</span><svg class="jc-ar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div class="jc-m"><span class="tg">Profiles</span><span class="tg">Remote</span><span class="tg">Full-time</span><span class="tg">$170–220K AUD</span></div><p class="jc-d">Build the AI pipelines powering the world's smartest contact intelligence platform. Work across LLMs, embeddings, and retrieval systems at scale.</p></a>
+    <a class="jc rv d2" data-d="eng" id="be" onclick="openJob('be');return false;" href="#be"><div class="jc-t"><span class="jc-ti">Backend Engineer — Node.js</span><svg class="jc-ar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div class="jc-m"><span class="tg">Wardrobe</span><span class="tg">Remote</span><span class="tg">Full-time</span><span class="tg">$130–170K AUD</span></div><p class="jc-d">Design scalable APIs for our peer-to-peer fashion rental platform. Complex logistics, real-time pricing, and marketplace dynamics at scale.</p></a>
+    <a class="jc rv d2" data-d="eng" id="fe" onclick="openJob('fe');return false;" href="#fe"><div class="jc-t"><span class="jc-ti">Frontend Engineer — React</span><svg class="jc-ar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div class="jc-m"><span class="tg">All Products</span><span class="tg">Remote</span><span class="tg">Full-time</span><span class="tg">$120–160K AUD</span></div><p class="jc-d">Craft pixel-perfect, performant UIs across our product portfolio. We care deeply about micro-interactions, animation, and experience quality.</p></a>
+
+    <div class="dl rv" data-d="pd">Product &amp; Design</div>
+    <a class="jc rv d1" data-d="pd" id="design" onclick="openJob('design');return false;" href="#design"><div class="jc-t"><span class="jc-ti">Product Designer</span><svg class="jc-ar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div class="jc-m"><span class="tg">All Products</span><span class="tg">Remote</span><span class="tg">Contract → Full-time</span></div><p class="jc-d">Own product design end-to-end across multiple platforms. From strategic discovery through to pixel-perfect delivery in Figma.</p></a>
+    <a class="jc rv d2" data-d="pd" id="pm" onclick="openJob('pm');return false;" href="#pm"><div class="jc-t"><span class="jc-ti">Product Manager</span><svg class="jc-ar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div class="jc-m"><span class="tg">Profiles</span><span class="tg">Remote / Sydney</span><span class="tg">Full-time</span><span class="tg">$150K+ AUD</span></div><p class="jc-d">Define and drive the roadmap for the world's largest contact intelligence platform. Data-first, customer-obsessed, and deeply comfortable with ambiguity.</p></a>
+
+    <div class="dl rv" data-d="gr">Growth</div>
+    <a class="jc rv d1" data-d="gr" id="growth" onclick="openJob('growth');return false;" href="#growth"><div class="jc-t"><span class="jc-ti">Head of Growth</span><svg class="jc-ar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div class="jc-m"><span class="tg">Wardrobe</span><span class="tg">Sydney</span><span class="tg">Full-time</span><span class="tg">$180K+ AUD</span></div><p class="jc-d">Own acquisition, retention, and monetisation for Wardrobe's peer-to-peer marketplace. Build the growth engine from scratch.</p></a>
+    <a class="jc rv d2" data-d="gr" id="cm" onclick="openJob('cm');return false;" href="#cm"><div class="jc-t"><span class="jc-ti">Performance Marketing Manager</span><svg class="jc-ar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div class="jc-m"><span class="tg">All Products</span><span class="tg">Remote</span><span class="tg">Full-time</span><span class="tg">$110–140K AUD</span></div><p class="jc-d">Drive paid acquisition across our product portfolio. Deep expertise in Meta, TikTok, and Google Ads. Obsessed with attribution and CAC efficiency.</p></a>
+
+    <div class="dl rv" data-d="st">Studio &amp; Ops</div>
+    <a class="jc rv d1" data-d="st" id="studio" onclick="openJob('studio');return false;" href="#studio"><div class="jc-t"><span class="jc-ti">Live Studio Producer</span><svg class="jc-ar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div class="jc-m"><span class="tg">GreatGaming</span><span class="tg">Sydney (On-site)</span><span class="tg">Full-time</span><span class="tg">$90–120K AUD</span></div><p class="jc-d">Lead production of live dealer shows from our Sydney studio. Manage broadcast quality, talent direction, and technical execution in real-time.</p></a>
+    <a class="jc rv d2" data-d="st" id="ops" onclick="openJob('ops');return false;" href="#ops"><div class="jc-t"><span class="jc-ti">Operations Manager</span><svg class="jc-ar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><div class="jc-m"><span class="tg">GHC</span><span class="tg">Sydney</span><span class="tg">Full-time</span><span class="tg">$100–130K AUD</span></div><p class="jc-d">Be the operational backbone of GHC. Own vendor relationships, internal processes, and cross-team coordination across all four product lines.</p></a>
+  </div>
+</div>
+
+<div class="perks">
+  <div class="ct">
+    <h2 class="rv">Why GHC?</h2>
+    <div class="pg">
+      <div class="pk rv"><div class="pk-i">💰</div><h4>Equity from day one</h4><p>Every team member receives equity. We're building something big and everyone should benefit from that.</p></div>
+      <div class="pk rv d1"><div class="pk-i">🌏</div><h4>Fully remote-first</h4><p>Work from anywhere. We have team members across 20+ countries and run async-first operations.</p></div>
+      <div class="pk rv d2"><div class="pk-i">🚀</div><h4>Ship at speed</h4><p>No bureaucracy. Small teams with full ownership. Your work ships to users in days, not quarters.</p></div>
+      <div class="pk rv d1"><div class="pk-i">🏖️</div><h4>Unlimited leave</h4><p>Take the time you need. We trust our team to deliver and to look after themselves.</p></div>
+      <div class="pk rv d2"><div class="pk-i">📚</div><h4>Learning budget</h4><p>$3,000 AUD annually for courses, conferences, books, and anything that makes you better at your craft.</p></div>
+      <div class="pk rv d3"><div class="pk-i">⚡</div><h4>Top-spec equipment</h4><p>MacBook Pro, external display, and any peripherals you need. We invest in your setup so you can do your best work.</p></div>
+    </div>
+  </div>
+</div>
+
+<footer><div class="fb2"><p>© 2025 GHC Pty Ltd. All rights reserved.</p><div class="fs"><a href="index.html">Home</a><a href="mailto:careers@ghc.io">Apply Now</a></div></div></footer>
+
+<script>
+const cr=document.getElementById('cr'),crr=document.getElementById('crr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cr.style.left=mx+'px';cr.style.top=my+'px';});
+(function aR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crr.style.left=rx+'px';crr.style.top=ry+'px';requestAnimationFrame(aR);})();
+document.querySelectorAll('a,button,.jc').forEach(el=>{
+  el.addEventListener('mouseenter',()=>crr.classList.add('h'));
+  el.addEventListener('mouseleave',()=>crr.classList.remove('h'));
+});
+
+// SCROLL REVEAL
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:.05,rootMargin:'0px 0px -36px 0px'});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+// FILTER
+function filterJobs(dept,btn){
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  document.querySelectorAll('.jc,.dl').forEach(el=>{
+    if(dept==='all'||el.dataset.d===dept){el.style.display='';}
+    else{el.style.display='none';}
+  });
+}
+
+// JOB DATA
+const jobs={
+  fse:{title:'Senior Full-Stack Engineer',dept:'Engineering',tags:['Royale.world','Remote','Full-time','$180–230K AUD'],about:'We are looking for a senior full-stack engineer to join the Royale.world team and take ownership of our core gaming platform. You will architect, build, and ship features used by tens of thousands of concurrent users across the globe.',resp:['Architect and deliver full-stack features across Royale\'s gaming platform','Own critical infrastructure including real-time game engines and wallet systems','Collaborate directly with the product and design teams to ship exceptional experiences','Define technical standards and mentor junior engineers','Participate in on-call rotations for production systems'],reqs:['5+ years full-stack experience (Node.js / Next.js / React)','Experience with real-time systems (WebSockets, Redis)','Strong understanding of distributed systems and database design','Experience with high-traffic, low-latency applications','Bonus: Experience in gaming, fintech, or crypto industries'],comp:'$180,000–230,000 AUD + equity'},
+  ml:{title:'AI / ML Engineer',dept:'Engineering',tags:['Profiles.io','Remote','Full-time','$170–220K AUD'],about:'Profiles.io is the world\'s largest contact intelligence platform with 500M+ records. We are looking for an ML engineer to build the AI systems that make Profiles intelligent — from enrichment pipelines to LLM-powered search and matching.',resp:['Build and improve AI enrichment pipelines at scale','Develop LLM-powered search, match, and recommendation systems','Work with embeddings, vector databases, and RAG architectures','Measure and improve model accuracy, latency, and cost','Collaborate with the engineering team to deploy models to production'],reqs:['3+ years in ML engineering, not just research','Strong Python, experience with PyTorch or JAX','Hands-on with LLMs, fine-tuning, and prompt engineering','Experience with vector databases (Pinecone, Weaviate, Qdrant)','Production experience deploying ML systems at scale'],comp:'$170,000–220,000 AUD + equity'},
+  be:{title:'Backend Engineer — Node.js',dept:'Engineering',tags:['Wardrobe','Remote','Full-time','$130–170K AUD'],about:'Wardrobe is building the world\'s first peer-to-peer fashion rental marketplace. We need a backend engineer to design and build the APIs and systems powering our complex marketplace dynamics — real-time pricing, logistics, and trust & safety.',resp:['Design and build REST and GraphQL APIs for our marketplace platform','Implement complex marketplace logic: dynamic pricing, availability, logistics','Build data pipelines for reporting and analytics','Ensure platform reliability through robust testing and monitoring','Work closely with the frontend and mobile teams'],reqs:['3+ years backend engineering (Node.js / TypeScript)','Experience building and scaling marketplace or e-commerce platforms','Strong with PostgreSQL and Redis','Familiarity with microservices architecture','Bonus: Experience with Stripe, shipping APIs, or logistics systems'],comp:'$130,000–170,000 AUD + equity'},
+  fe:{title:'Frontend Engineer — React',dept:'Engineering',tags:['All Products','Remote','Full-time','$120–160K AUD'],about:'We are looking for a frontend engineer who cares deeply about craft. You will build beautiful, fast, and accessible UIs across our four product lines — with a focus on exceptional animation, performance, and user experience.',resp:['Build production-grade frontend features in React and Next.js','Implement pixel-perfect designs with close attention to animation and interaction','Collaborate with designers to push the quality bar higher','Optimise for performance, accessibility, and mobile experience','Participate in design reviews and contribute ideas proactively'],reqs:['3+ years frontend engineering (React, TypeScript, CSS)','Deep knowledge of CSS, animation, and browser performance','Experience with Next.js and server-side rendering','Strong eye for design detail and UX quality','Bonus: Experience with Framer Motion, Three.js, or Canvas'],comp:'$120,000–160,000 AUD + equity'},
+  design:{title:'Product Designer',dept:'Product & Design',tags:['All Products','Remote','Contract → Full-time'],about:'We are looking for a world-class product designer to own design across our product portfolio. This is a rare opportunity to shape the look and feel of platforms used by millions of users across gaming, fashion, and data intelligence.',resp:['Own end-to-end product design from discovery to final spec','Build and maintain design systems across multiple products','Run user research, testing, and validation sessions','Work closely with engineering to ensure quality delivery','Push the aesthetic and experience bar across the entire GHC portfolio'],reqs:['4+ years product design experience for consumer or B2B software','Expert-level Figma and prototyping skills','Strong portfolio demonstrating systems thinking and craft','Experience shipping mobile and web products','Bonus: Motion design, illustration, or brand design skills'],comp:'$800–1,200 AUD / day (contract) or $130,000–170,000 AUD (full-time) + equity'},
+  pm:{title:'Product Manager',dept:'Product & Design',tags:['Profiles.io','Remote / Sydney','Full-time','$150K+ AUD'],about:'Lead the product strategy and roadmap for Profiles.io — the world\'s largest contact intelligence platform. You will define what we build, why we build it, and ensure it delivers real outcomes for our users and the business.',resp:['Own the Profiles product roadmap from strategy to shipping','Work closely with engineering, design, data, and commercial teams','Conduct user research and synthesise insights into product decisions','Define success metrics and hold the team accountable to outcomes','Communicate clearly and confidently with leadership and stakeholders'],reqs:['3+ years as a product manager for a B2B SaaS or data product','Strong analytical skills — comfortable with SQL and dashboards','Experience shipping zero-to-one features as well as scaling existing products','Excellent written and verbal communication','Bonus: Experience in sales intelligence, CRM, or data platforms'],comp:'$150,000+ AUD + equity'},
+  growth:{title:'Head of Growth',dept:'Growth',tags:['Wardrobe','Sydney','Full-time','$180K+ AUD'],about:'Wardrobe is the world\'s first peer-to-peer fashion rental marketplace. We are looking for a Head of Growth to own our acquisition, retention, and monetisation strategy. This is a zero-to-one role — you\'ll build the entire growth engine.',resp:['Own all growth metrics: CAC, LTV, retention, and GMV','Build and lead a small performance and content marketing team','Define our channel strategy across paid, organic, and partnerships','Set up experimentation infrastructure and a culture of rigorous testing','Work directly with the founding team to set and execute growth strategy'],reqs:['5+ years in growth, marketing, or user acquisition (marketplace or consumer app preferred)','Deep expertise in at least two paid channels (Meta, TikTok, Google, etc.)','Strong analytical skills — SQL proficiency preferred','Experience building and managing a small team','Track record of achieving meaningful growth targets'],comp:'$180,000+ AUD + equity and performance bonuses'},
+  cm:{title:'Performance Marketing Manager',dept:'Growth',tags:['All Products','Remote','Full-time','$110–140K AUD'],about:'Drive paid user acquisition across the GHC product portfolio. You will manage campaigns, optimise spend efficiency, and build attribution infrastructure across our consumer-facing products.',resp:['Manage and optimise paid campaigns across Meta, TikTok, and Google','Build attribution models and reporting infrastructure','Develop creative testing frameworks across ad formats','Report on performance and recommend budget allocations','Work with designers and video editors to develop high-performing ad creatives'],reqs:['3+ years in performance marketing (consumer or marketplace apps preferred)','Deep expertise in Meta Ads Manager and Google Ads','Experience with mobile measurement platforms (Adjust, AppsFlyer)','Strong analytical skills and Excel / SQL proficiency','Bonus: Experience with influencer campaigns or UGC strategy'],comp:'$110,000–140,000 AUD + equity'},
+  studio:{title:'Live Studio Producer',dept:'Studio & Ops',tags:['GreatGaming','Sydney (On-site)','Full-time','$90–120K AUD'],about:'Lead the production of live dealer shows from our Sydney studio. GreatGaming is a full-stack live casino studio and we are looking for a producer to manage broadcast quality, talent direction, and technical execution in real-time.',resp:['Direct live dealer shows in our Sydney production studio','Manage broadcast quality: lighting, audio, camera direction, and streaming','Oversee talent (live dealers) and ensure consistent performance standards','Coordinate with technical team on streaming infrastructure and uptime','Develop operational playbooks and training for studio staff'],reqs:['3+ years in live broadcast production or TV/streaming production','Experience directing talent in a live environment','Strong understanding of video streaming technology','Excellent communication and calm under pressure','Bonus: Experience in gambling, entertainment, or broadcast media'],comp:'$90,000–120,000 AUD'},
+  ops:{title:'Operations Manager',dept:'Studio & Ops',tags:['GHC','Sydney','Full-time','$100–130K AUD'],about:'Be the operational backbone of GHC. You will own vendor relationships, internal processes, finance administration, and cross-team coordination across all four of our product lines.',resp:['Own day-to-day operational processes across the GHC group','Manage vendor and supplier relationships','Support finance operations: invoicing, expenses, and reporting','Coordinate cross-team scheduling, project tracking, and communication','Build scalable operations processes as the company grows'],reqs:['3+ years in operations, chief of staff, or business operations roles','Exceptional organisation and attention to detail','Experience supporting a fast-paced startup or scale-up','Strong communication and stakeholder management skills','Bonus: Xero or accounting experience'],comp:'$100,000–130,000 AUD + equity'}
+};
+
+function openJob(id){
+  const j=jobs[id];if(!j)return;
+  const html=`<div class="jd-ey">${j.dept}</div>
+<div class="jd-ti">${j.title}</div>
+<div class="jd-tags">${j.tags.map(t=>`<span class="tg">${t}</span>`).join('')}</div>
+<div class="jd-b">
+<h3>About the role</h3><p>${j.about}</p>
+<h3>Responsibilities</h3><ul>${j.resp.map(r=>`<li>${r}</li>`).join('')}</ul>
+<h3>Requirements</h3><ul>${j.reqs.map(r=>`<li>${r}</li>`).join('')}</ul>
+<h3>Compensation</h3><p>${j.comp}</p>
+</div>
+<div class="jd-ap"><a href="mailto:careers@ghc.io?subject=Application: ${j.title}" class="btn btn-s">Apply for this role →</a></div>`;
+  document.getElementById('jdContent').innerHTML=html;
+  document.getElementById('jdo').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeJob(){
+  document.getElementById('jdo').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeJob();});
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>GreatGaming — GHC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0d0d0d;--bg2:#111;--text:#eeebe3;--muted:rgba(238,235,227,.62);--muted2:rgba(238,235,227,.36);--border:rgba(238,235,227,.1);--border2:rgba(238,235,227,.18);--ff:'Sora',sans-serif;--fb:'DM Sans',sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none;}
+.cursor,.cursor-ring{position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);border-radius:50%;}
+.cursor{width:7px;height:7px;background:var(--text);mix-blend-mode:difference;}
+.cursor-ring{width:34px;height:34px;border:1px solid rgba(238,235,227,.4);z-index:99998;transition:width .3s,height .3s;mix-blend-mode:difference;}
+.cursor-ring.h{width:52px;height:52px;opacity:.4;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.028;pointer-events:none;z-index:9998;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 44px;background:rgba(13,13,13,.92);backdrop-filter:blur(28px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;text-decoration:none;}
+.lsvg{height:22px;display:block;}.lion{height:26px;display:none;}
+.nright{display:flex;align-items:center;gap:20px;}
+.bk{font-family:var(--ff);font-size:11.5px;font-weight:300;color:var(--muted);text-decoration:none;letter-spacing:.8px;display:flex;align-items:center;gap:8px;transition:color .2s;}
+.bk:hover{color:var(--text);}
+.ncta{font-family:var(--ff);font-size:11.5px;font-weight:400;color:var(--bg);background:var(--text);padding:9px 20px;border-radius:3px;text-decoration:none;transition:opacity .2s;}
+.ncta:hover{opacity:.82;}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.rv.in{opacity:1;transform:none;}
+.d1{transition-delay:.07s;}.d2{transition-delay:.14s;}.d3{transition-delay:.21s;}.d4{transition-delay:.28s;}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff);font-weight:400;font-size:12px;letter-spacing:1px;text-decoration:none;border:none;cursor:none;white-space:nowrap;}
+.btn-s{background:var(--text);color:var(--bg);padding:13px 28px;border-radius:3px;transition:opacity .2s;}
+.btn-s:hover{opacity:.82;}
+.btn-o{background:transparent;color:var(--muted);border:1px solid var(--border2);padding:12px 28px;border-radius:3px;transition:border-color .2s,color .2s;}
+.btn-o:hover{color:var(--text);border-color:rgba(238,235,227,.32);}
+footer{background:#080808;padding:48px 44px 32px;border-top:1px solid var(--border);}
+.ft{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;}
+.ft p{font-family:var(--ff);font-size:11px;font-weight:300;color:rgba(238,235,227,.28);}
+.ft-s{display:flex;gap:24px;}
+.ft-s a{font-family:var(--ff);font-size:11px;font-weight:300;color:rgba(238,235,227,.36);text-decoration:none;transition:color .2s;}
+.ft-s a:hover{color:var(--muted);}
+@media(max-width:768px){nav{padding:0 22px;}.lsvg{display:none;}.lion{display:block;}.ft{flex-direction:column;text-align:center;}}
+
+
+.ph{padding:160px 44px 0;background:var(--bg);}
+.ph .ct{max-width:1280px;margin:0 auto;}
+.ey{font-family:var(--ff);font-size:10px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);margin-bottom:20px;display:flex;align-items:center;gap:14px;}
+.ey::before{content:'';width:24px;height:1px;background:currentColor;}
+.ph h1{font-family:var(--ff);font-weight:200;font-size:clamp(48px,7vw,100px);letter-spacing:-3px;line-height:.9;padding-bottom:.06em;margin-bottom:56px;}
+.ph-meta{display:flex;align-items:center;gap:32px;padding:28px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.ph-m{font-family:var(--ff);font-size:11px;font-weight:300;color:var(--muted2);letter-spacing:1px;}
+.ph-m span{color:var(--text);margin-left:8px;}
+.hero-img{width:100%;aspect-ratio:16/7;object-fit:cover;display:block;border-bottom:1px solid var(--border);}
+.ct{max-width:1280px;margin:0 auto;}
+.summary-s{padding:80px 44px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.sum-grid{display:grid;grid-template-columns:5fr 4fr;gap:80px;align-items:start;}
+.sum-l h2{font-family:var(--ff);font-weight:200;font-size:clamp(28px,4vw,48px);letter-spacing:-2px;margin-bottom:24px;}
+.sum-l p{font-size:16px;color:var(--muted);line-height:1.9;margin-bottom:20px;}
+.stats-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:2px;overflow:hidden;}
+.sbar-s{background:var(--bg);padding:24px 20px;}
+.sbar-n{font-family:var(--ff);font-weight:200;font-size:clamp(28px,4vw,40px);letter-spacing:-2px;line-height:1;color:#22d3ee;margin-bottom:6px;}
+.sbar-l{font-family:var(--ff);font-size:10px;font-weight:300;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2);}
+.body-s{padding:80px 44px;background:var(--bg);border-bottom:1px solid var(--border);}
+.body-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;}
+.body-block h3{font-family:var(--ff);font-weight:300;font-size:clamp(22px,3vw,32px);letter-spacing:-1px;margin-bottom:20px;}
+.body-block p{font-size:15px;color:var(--muted);line-height:1.88;}
+.imgs-s{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+.imgs-s img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;}
+.outcomes-s{padding:80px 44px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.out-grid{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;}
+.out-h h2{font-family:var(--ff);font-weight:200;font-size:clamp(28px,4vw,48px);letter-spacing:-2px;}
+.out-list{display:flex;flex-direction:column;}
+.out-item{display:flex;align-items:flex-start;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);}
+.out-item:first-child{border-top:1px solid var(--border);}
+.out-num{font-family:var(--ff);font-size:9px;font-weight:300;color:var(--muted2);flex-shrink:0;padding-top:3px;width:24px;}
+.out-item p{font-size:15px;color:var(--muted);line-height:1.78;}
+.tech-s{padding:60px 44px;background:var(--bg);border-bottom:1px solid var(--border);}
+.tech-inner{display:flex;align-items:center;gap:40px;flex-wrap:wrap;}
+.tech-label{font-family:var(--ff);font-size:10px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);white-space:nowrap;}
+.tech-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.tech-tag{font-family:var(--ff);font-size:10px;font-weight:300;letter-spacing:.5px;padding:5px 12px;border:1px solid var(--border);border-radius:2px;color:var(--muted2);}
+.cta-s{padding:100px 44px;background:var(--bg2);text-align:center;}
+.cta-s h2{font-family:var(--ff);font-weight:200;font-size:clamp(36px,6vw,72px);letter-spacing:-3px;margin-bottom:20px;}
+.cta-s p{font-size:16px;color:var(--muted);margin-bottom:40px;}
+.cta-acts{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+@media(max-width:768px){.ph,.summary-s,.body-s,.outcomes-s,.tech-s,.cta-s{padding-left:22px;padding-right:22px;}.sum-grid,.body-grid,.out-grid{grid-template-columns:1fr;gap:40px;}.imgs-s{grid-template-columns:1fr;}.stats-bar{grid-template-columns:1fr 1fr;}}
+
+</style>
+</head>
+<body>
+<div class="cursor" id="cr"></div>
+<div class="cursor-ring" id="crr"></div><nav>
+  <a href="index.html" class="nav-logo">
+    <svg class="lsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1893.8828 640.0001"><path d="M533.3042,394.3157h-239.9053v-148.6316h239.9053c7.4907,0,14.1826-4.6809,16.7505-11.718,2.5679-7.0361.4653-14.9277-5.2646-19.7522L301.8242,9.6092c-15.2139-12.8123-37.3003-12.8123-52.5132,0L14.5063,207.3414c-9.2192,7.7625-14.5063,19.1274-14.5063,31.1799v162.9573c0,12.0525,5.2871,23.4175,14.5054,31.1792l234.8052,197.7329c7.6079,6.407,16.9307,9.6101,26.2573,9.6094,9.3228-.001,18.6504-3.2041,26.2563-9.6094l242.9658-204.6045c5.73-4.8247,7.8325-12.7163,5.2646-19.7524-2.5679-7.0371-9.2598-11.718-16.7505-11.718ZM484.4478,210.0218h-191.0488V49.1373l191.0488,160.8845ZM257.7368,49.1378v160.884H66.6885L257.7368,49.1378ZM35.6626,245.6841h222.0742v148.6316H35.6626v-148.6316ZM66.6875,429.9781h191.0493v160.8848l-191.0493-160.8848ZM293.3989,590.8629v-160.8848h191.0488l-191.0488,160.8848Z" fill="var(--text)"/>
+<path d="M1417.0796,160h-25.5534c-7.4942,0-13.5904,6.0963-13.5904,13.5904v125.1195h-193.1423v-125.1195c0-7.4942-6.0963-13.5904-13.5904-13.5904h-25.5579c-7.4942,0-13.5904,6.0963-13.5904,13.5904v292.8191c0,7.4942,6.0963,13.5904,13.5904,13.5904h25.5579c7.4942,0,13.5904-6.0963,13.5904-13.5904v-126.6487h193.1423v126.6487c0,7.4942,6.0963,13.5904,13.5904,13.5904h25.5534c7.4942,0,13.5904-6.0963,13.5904-13.5904V173.5904c0-7.4942-6.0963-13.5904-13.5904-13.5904Z" fill="var(--text)"/>
+<path d="M1880.2923,201.0464c7.4942,0,13.5904-6.0963,13.5904-13.5904v-13.8655c0-7.4942-6.0963-13.5904-13.5904-13.5904h-217.58c-34.3061,0-62.4892,5.0816-83.7649,15.1036-62.2507,29.3041-67.0884,118.5088-67.0884,145.151,0,40.849,7.0154,96.2281,40.4354,128.0815,28.2358,26.9263,57.1209,31.664,107.3729,31.664h220.625c7.4942,0,13.5904-6.0963,13.5904-13.5904v-13.87c0-7.4942-6.0963-13.5904-13.5904-13.5904h-206.4013c-36.4713,0-62.9528-9.9604-78.7075-29.6042-15.4537-19.2588-22.9666-49.8992-22.9666-93.6726,0-40.4381,7.4879-68.9008,22.8916-87.0136,15.5886-18.3227,41.2402-27.6123,76.2431-27.6123h208.9407Z" fill="var(--text)"/>
+<path d="M1025.4929,160h-243.5023c-34.3061,0-62.4892,5.0816-83.7658,15.1036-62.2507,29.3041-67.0884,118.5088-67.0884,145.151,0,40.849,7.0154,96.2281,40.4354,128.0815,28.2367,26.9263,57.1218,31.664,107.3738,31.664h246.5473c7.4942,0,13.5904-6.0963,13.5904-13.5904v-155.1239c0-7.4942-6.0963-13.5904-13.5904-13.5904h-230.3165v41.0509h191.1727v100.203h-193.1798c-36.4722,0-62.9528-9.9604-78.7084-29.6042-15.4537-19.2597-22.9666-49.901-22.9666-93.6726,0-40.4354,7.4879-68.8981,22.8907-87.0136,15.5895-18.3227,41.2411-27.6123,76.244-27.6123h234.864c7.4942,0,13.5904-6.0963,13.5904-13.5904v-13.8655c0-7.4942-6.0963-13.5904-13.5904-13.5904Z" fill="var(--text)"/></svg>
+    <svg class="lion" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1678 1948.556"><path d="M1623.7086,1200.541h-730.4208v-452.5265h730.4208c22.8056,0,43.1792-14.2516,50.9981-35.6769,7.8186-21.4223,1.4168-45.4493-16.0285-60.1379L918.9396,29.2563c-46.3204-39.0084-113.5659-39.0084-159.8819,0L44.167,631.2754c-28.0691,23.6337-44.167,58.2358-44.167,94.931v496.1427c0,36.6952,16.098,71.2973,44.1641,94.9288l714.8914,602.0213c23.1632,19.5068,51.5482,29.2591,79.9435,29.2569,28.385-.003,56.7833-9.7553,79.9406-29.2569l739.7386-622.9426c17.4452-14.6894,23.847-38.7163,16.0285-60.1386-7.8189-21.4253-28.1925-35.6769-50.9981-35.6769ZM1474.9593,639.4362h-581.6715V149.6042l581.6715,489.832ZM784.7095,149.6057v489.8305H203.041L784.7095,149.6057ZM108.5783,748.0145h676.1313v452.5265H108.5783v-452.5265ZM203.0387,1309.1193h581.6708v489.8327l-581.6708-489.8327ZM893.2878,1798.952v-489.8327h581.6715l-581.6715,489.8327Z" fill="var(--text)"/></svg>
+  </a>
+  <div class="nright">
+    <a href="index.html" class="bk">← Back to GHC</a>
+    <a href="mailto:hello@ghc.io" class="ncta">Get in Touch</a>
+  </div>
+</nav>
+<div class="ph">
+  <div class="ct">
+    <div class="ey rv">Live Casino Studio · Case Study</div>
+    <h1 class="rv d1"><span style="display:block">A live casino studio</span><span style="display:block">built for the</span><span style="display:block">biggest platforms.</span></h1>
+    <div class="ph-meta rv d2">
+      <span class="ph-m">Product<span>GreatGaming</span></span>
+      <span class="ph-m">Category<span>Live Casino Studio</span></span>
+      <span class="ph-m">URL<span><a href="https://greatgaming.io" target="_blank" style="color:var(--text);text-decoration:none;">greatgaming.io</a></span></span>
+      <span class="ph-m">Built by<span>GHC</span></span>
+    </div>
+  </div>
+</div>
+
+<img class="hero-img" src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=1400&q=80&fit=crop" alt="GreatGaming hero image" loading="eager"/>
+
+<div class="summary-s">
+  <div class="ct">
+    <div class="sum-grid">
+      <div class="sum-l rv">
+        <h2>About GreatGaming</h2>
+        <p>GreatGaming is a full-stack live dealer and casino games studio operating from Sydney, Australia. We develop, produce, and distribute live casino content to the world's largest online gaming operators. Our studio handles everything: game design, technology, production, talent, and distribution.</p>
+        <a href="https://greatgaming.io" target="_blank" rel="noopener" class="btn btn-o" style="margin-top:8px;display:inline-flex;">Visit greatgaming.io →</a>
+      </div>
+      <div class="stats-bar rv d1">
+        <div class="sbar-s"><div class="sbar-n" style="color:#22d3ee">24/7</div><div class="sbar-l">Live studio operation</div></div><div class="sbar-s"><div class="sbar-n" style="color:#22d3ee">50ms</div><div class="sbar-l">Stream latency</div></div><div class="sbar-s"><div class="sbar-n" style="color:#22d3ee">30+</div><div class="sbar-l">Game titles</div></div><div class="sbar-s"><div class="sbar-n" style="color:#22d3ee">99.99%</div><div class="sbar-l">Stream uptime</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="body-s">
+  <div class="ct">
+    <div class="body-grid">
+      <div class="body-block rv">
+        <h3>The challenge</h3>
+        <p>The live dealer market was controlled by a small number of European incumbents who set both the technology and quality standard. B2B gaming operators wanting to offer live content had limited, expensive options with long integration timelines. There was a clear gap for a technically superior, design-led studio with modern content distribution infrastructure.</p>
+      </div>
+      <div class="body-block rv d1">
+        <h3>Our solution</h3>
+        <p>We built GreatGaming as a vertically integrated studio: owning the IP, the technology, the production infrastructure, and the distribution pipeline. Our Sydney studio runs 24/7 with broadcast-grade production, custom game engines, and an API-first distribution platform that integrates with any operator in days, not months.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="imgs-s">
+  <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80&fit=crop" alt="GreatGaming screenshot 1" loading="lazy"/>
+  <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800&q=80&fit=crop" alt="GreatGaming screenshot 2" loading="lazy"/>
+</div>
+
+<div class="outcomes-s">
+  <div class="ct">
+    <div class="out-grid">
+      <div class="out-h rv"><h2>Key outcomes &amp; results.</h2></div>
+      <div class="out-list">
+        <div class="out-item rv d1"><div class="out-num">01</div><p>Launched Australia's first fully licensed live casino production studio</p></div><div class="out-item rv d2"><div class="out-num">02</div><p>Achieved 50ms end-to-end stream latency — best in class globally</p></div><div class="out-item rv d3"><div class="out-num">03</div><p>99.99% uptime across all live game streams in year one</p></div><div class="out-item rv d4"><div class="out-num">04</div><p>Integrated with 15+ tier-1 gaming operators globally within 12 months</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tech-s">
+  <div class="ct">
+    <div class="tech-inner rv">
+      <span class="tech-label">Built with</span>
+      <div class="tech-tags"><span class="tech-tag">WebRTC</span><span class="tech-tag">Node.js</span><span class="tech-tag">React</span><span class="tech-tag">FFmpeg</span><span class="tech-tag">AWS MediaLive</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Redis</span><span class="tech-tag">Custom Game Engine (C++)</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-s">
+  <div class="ct">
+    <h2 class="rv">Want to learn more?</h2>
+    <p class="rv d1">Get in touch with the GHC team to discuss partnerships, investment, or collaboration.</p>
+    <div class="cta-acts rv d2">
+      <a href="mailto:hello@ghc.io" class="btn btn-s">Get in Touch</a>
+      <a href="index.html#products" class="btn btn-o">All Products →</a>
+    </div>
+  </div>
+</div>
+<footer><div class="ft"><p>© 2025 GHC Pty Ltd. All rights reserved.</p><div class="ft-s"><a href="index.html">Home</a><a href="careers.html">Careers</a><a href="mailto:hello@ghc.io">Contact</a></div></div></footer>
+<script>
+const cr=document.getElementById('cr'),crr=document.getElementById('crr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cr.style.left=mx+'px';cr.style.top=my+'px';});
+(function aR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crr.style.left=rx+'px';crr.style.top=ry+'px';requestAnimationFrame(aR);})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>crr.classList.add('h'));el.addEventListener('mouseleave',()=>crr.classList.remove('h'));});
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:.05,rootMargin:'0px 0px -36px 0px'});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>

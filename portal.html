@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Investor Portal — GHC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0d0d0d;--bg2:#111;--text:#eeebe3;--muted:rgba(238,235,227,.62);--muted2:rgba(238,235,227,.36);--border:rgba(238,235,227,.1);--border2:rgba(238,235,227,.18);--ff:'Sora',sans-serif;--fb:'DM Sans',sans-serif;}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none;}
+.cursor,.cursor-ring{position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);border-radius:50%;}
+.cursor{width:7px;height:7px;background:var(--text);mix-blend-mode:difference;}
+.cursor-ring{width:34px;height:34px;border:1px solid rgba(238,235,227,.4);z-index:99998;transition:width .3s,height .3s;mix-blend-mode:difference;}
+.cursor-ring.h{width:52px;height:52px;opacity:.4;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.028;pointer-events:none;z-index:9998;}
+
+/* SIDEBAR LAYOUT */
+.layout{display:grid;grid-template-columns:260px 1fr;min-height:100vh;}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:32px 0;position:fixed;top:0;left:0;bottom:0;width:260px;z-index:200;}
+.sb-logo{padding:0 28px 32px;border-bottom:1px solid var(--border);}
+.sb-logo svg{height:17px;}
+.sb-logo a{display:inline-block;}
+.sb-badge{margin:20px 28px 8px;display:inline-flex;align-items:center;gap:7px;font-family:var(--ff);font-size:9px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);border:1px solid var(--border);padding:4px 10px;border-radius:2px;}
+.sb-badge svg{opacity:.5;}
+.sb-nav{flex:1;padding:8px 0;}
+.sb-group-label{font-family:var(--ff);font-size:9px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);padding:20px 28px 8px;}
+.sb-link{display:flex;align-items:center;gap:12px;padding:10px 28px;font-family:var(--ff);font-size:12.5px;font-weight:300;color:var(--muted2);text-decoration:none;cursor:none;transition:color .2s,background .2s;position:relative;}
+.sb-link:hover,.sb-link.act{color:var(--text);background:rgba(238,235,227,.04);}
+.sb-link.act::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:2px;height:16px;background:var(--text);border-radius:1px;}
+.sb-link svg{flex-shrink:0;opacity:.6;}
+.sb-link.act svg,.sb-link:hover svg{opacity:1;}
+.sb-foot{padding:24px 28px;border-top:1px solid var(--border);}
+.sb-user{display:flex;align-items:center;gap:12px;}
+.sb-avatar{width:32px;height:32px;border-radius:50%;background:rgba(238,235,227,.08);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:11px;font-weight:400;flex-shrink:0;}
+.sb-user-info{flex:1;min-width:0;}
+.sb-user-name{font-family:var(--ff);font-size:12px;font-weight:300;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sb-user-role{font-family:var(--ff);font-size:10px;font-weight:300;color:var(--muted2);}
+.sb-logout{font-family:var(--ff);font-size:10px;font-weight:300;color:var(--muted2);text-decoration:none;cursor:none;transition:color .2s;display:block;margin-top:6px;}
+.sb-logout:hover{color:var(--muted);}
+
+/* MAIN */
+.main{margin-left:260px;padding:48px 56px;}
+.page-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.page-header h1{font-family:var(--ff);font-weight:200;font-size:clamp(28px,3.5vw,44px);letter-spacing:-1.5px;margin-bottom:6px;}
+.page-header p{font-size:14px;color:var(--muted);}
+.conf-notice{display:flex;align-items:center;gap:12px;background:rgba(238,235,227,.03);border:1px solid var(--border);border-radius:2px;padding:14px 18px;margin-bottom:40px;font-family:var(--ff);font-size:11.5px;font-weight:300;color:var(--muted2);}
+.conf-notice svg{flex-shrink:0;opacity:.6;}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:2px;overflow:hidden;margin-bottom:48px;}
+.sr-s{background:var(--bg);padding:22px 24px;}
+.sr-n{font-family:var(--ff);font-weight:200;font-size:clamp(22px,3vw,32px);letter-spacing:-1.5px;line-height:1;margin-bottom:5px;}
+.sr-l{font-family:var(--ff);font-size:9.5px;font-weight:300;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2);}
+
+/* ARTICLES GRID */
+.section-label{font-family:var(--ff);font-size:10px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);margin-bottom:20px;display:flex;align-items:center;gap:14px;}
+.section-label::before{content:'';width:24px;height:1px;background:currentColor;}
+.articles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border);}
+.art-card{background:var(--bg2);padding:32px;cursor:none;transition:background .3s;text-decoration:none;color:inherit;display:flex;flex-direction:column;}
+.art-card:hover{background:#161616;}
+.art-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+.art-cat{font-family:var(--ff);font-size:9px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);}
+.art-date{font-family:var(--ff);font-size:9px;font-weight:300;color:var(--muted2);}
+.art-title{font-family:var(--ff);font-weight:300;font-size:clamp(16px,2vw,22px);letter-spacing:-.5px;line-height:1.15;margin-bottom:12px;}
+.art-excerpt{font-size:13.5px;color:var(--muted);line-height:1.75;flex:1;margin-bottom:20px;}
+.art-foot{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--border);}
+.art-tag{font-family:var(--ff);font-size:9px;font-weight:300;letter-spacing:1px;padding:3px 8px;border:1px solid var(--border);border-radius:2px;color:var(--muted2);text-transform:uppercase;}
+.art-arr{color:var(--muted2);transition:color .2s,transform .3s cubic-bezier(.16,1,.3,1);}
+.art-card:hover .art-arr{color:var(--text);transform:translateX(4px);}
+.art-featured{grid-column:1/-1;background:var(--bg2);}
+.art-featured .art-title{font-size:clamp(20px,2.5vw,30px);}
+
+/* ARTICLE DETAIL */
+.art-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(13,13,13,.97);backdrop-filter:blur(24px);overflow-y:auto;}
+.art-overlay.open{display:flex;}
+.ao-inner{max-width:680px;margin:auto;padding:100px 44px 80px;}
+.ao-close{position:fixed;top:24px;right:44px;background:none;border:none;cursor:none;font-family:var(--ff);font-size:11px;color:var(--muted2);text-transform:uppercase;letter-spacing:1.5px;display:flex;align-items:center;gap:8px;z-index:10;}
+.ao-close:hover{color:var(--text);}
+.ao-cat{font-family:var(--ff);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);margin-bottom:14px;}
+.ao-title{font-family:var(--ff);font-weight:200;font-size:clamp(28px,5vw,52px);letter-spacing:-2px;line-height:.95;margin-bottom:20px;}
+.ao-meta{font-family:var(--ff);font-size:11px;color:var(--muted2);margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.ao-body h3{font-family:var(--ff);font-weight:400;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-top:32px;margin-bottom:14px;}
+.ao-body p{font-size:15.5px;color:var(--muted);line-height:1.88;margin-bottom:16px;}
+.ao-body ul{padding-left:20px;display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.ao-body li{font-size:15px;color:var(--muted);line-height:1.75;}
+.conf-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--ff);font-size:9px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);border:1px solid var(--border);padding:4px 10px;border-radius:2px;margin-bottom:28px;}
+
+@media(max-width:1000px){.layout{grid-template-columns:1fr;}.sidebar{display:none;}.main{margin-left:0;padding:32px 22px;}.stats-row{grid-template-columns:repeat(2,1fr);}.articles-grid{grid-template-columns:1fr;}.art-featured{grid-column:auto;}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cr"></div>
+<div class="cursor-ring" id="crr"></div>
+
+<!-- ARTICLE OVERLAY -->
+<div class="art-overlay" id="artOverlay">
+  <div class="ao-inner" id="artContent"></div>
+  <button class="ao-close" onclick="closeArt()">← Back to portal</button>
+</div>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-logo">
+      <a href="index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1893.8828 640.0001"><path d="M533.3042,394.3157h-239.9053v-148.6316h239.9053c7.4907,0,14.1826-4.6809,16.7505-11.718,2.5679-7.0361.4653-14.9277-5.2646-19.7522L301.8242,9.6092c-15.2139-12.8123-37.3003-12.8123-52.5132,0L14.5063,207.3414c-9.2192,7.7625-14.5063,19.1274-14.5063,31.1799v162.9573c0,12.0525,5.2871,23.4175,14.5054,31.1792l234.8052,197.7329c7.6079,6.407,16.9307,9.6101,26.2573,9.6094,9.3228-.001,18.6504-3.2041,26.2563-9.6094l242.9658-204.6045c5.73-4.8247,7.8325-12.7163,5.2646-19.7524-2.5679-7.0371-9.2598-11.718-16.7505-11.718ZM484.4478,210.0218h-191.0488V49.1373l191.0488,160.8845ZM257.7368,49.1378v160.884H66.6885L257.7368,49.1378ZM35.6626,245.6841h222.0742v148.6316H35.6626v-148.6316ZM66.6875,429.9781h191.0493v160.8848l-191.0493-160.8848ZM293.3989,590.8629v-160.8848h191.0488l-191.0488,160.8848Z" fill="var(--text)"/><path d="M1417.0796,160h-25.5534c-7.4942,0-13.5904,6.0963-13.5904,13.5904v125.1195h-193.1423v-125.1195c0-7.4942-6.0963-13.5904-13.5904-13.5904h-25.5579c-7.4942,0-13.5904,6.0963-13.5904,13.5904v292.8191c0,7.4942,6.0963,13.5904,13.5904,13.5904h25.5579c7.4942,0,13.5904-6.0963,13.5904-13.5904v-126.6487h193.1423v126.6487c0,7.4942,6.0963,13.5904,13.5904,13.5904h25.5534c7.4942,0,13.5904-6.0963,13.5904-13.5904V173.5904c0-7.4942-6.0963-13.5904-13.5904-13.5904Z" fill="var(--text)"/><path d="M1880.2923,201.0464c7.4942,0,13.5904-6.0963,13.5904-13.5904v-13.8655c0-7.4942-6.0963-13.5904-13.5904-13.5904h-217.58c-34.3061,0-62.4892,5.0816-83.7649,15.1036-62.2507,29.3041-67.0884,118.5088-67.0884,145.151,0,40.849,7.0154,96.2281,40.4354,128.0815,28.2358,26.9263,57.1209,31.664,107.3729,31.664h220.625c7.4942,0,13.5904-6.0963,13.5904-13.5904v-13.87c0-7.4942-6.0963-13.5904-13.5904-13.5904h-206.4013c-36.4713,0-62.9528-9.9604-78.7075-29.6042-15.4537-19.2588-22.9666-49.8992-22.9666-93.6726,0-40.4381,7.4879-68.9008,22.8916-87.0136,15.5886-18.3227,41.2402-27.6123,76.2431-27.6123h208.9407Z" fill="var(--text)"/><path d="M1025.4929,160h-243.5023c-34.3061,0-62.4892,5.0816-83.7658,15.1036-62.2507,29.3041-67.0884,118.5088-67.0884,145.151,0,40.849,7.0154,96.2281,40.4354,128.0815,28.2367,26.9263,57.1218,31.664,107.3738,31.664h246.5473c7.4942,0,13.5904-6.0963,13.5904-13.5904v-155.1239c0-7.4942-6.0963-13.5904-13.5904-13.5904h-230.3165v41.0509h191.1727v100.203h-193.1798c-36.4722,0-62.9528-9.9604-78.7084-29.6042-15.4537-19.2597-22.9666-49.901-22.9666-93.6726,0-40.4354,7.4879-68.8981,22.8907-87.0136,15.5895-18.3227,41.2411-27.6123,76.244-27.6123h234.864c7.4942,0,13.5904-6.0963,13.5904-13.5904v-13.8655c0-7.4942-6.0963-13.5904-13.5904-13.5904Z" fill="var(--text)"/></svg>
+      </a>
+    </div>
+    <div class="sb-badge"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Investor Portal</div>
+    <nav class="sb-nav">
+      <div class="sb-group-label">Overview</div>
+      <a href="#" class="sb-link act" onclick="setTab(this);return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+      <a href="#" class="sb-link" onclick="setTab(this);return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>Briefings &amp; Reports</a>
+      <a href="#" class="sb-link" onclick="setTab(this);return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>Portfolio Updates</a>
+      <div class="sb-group-label">Products</div>
+      <a href="case-study-profiles.html" class="sb-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profiles.io</a>
+      <a href="case-study-wardrobe.html" class="sb-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 11v8h8v-8"/></svg>Wardrobe</a>
+      <a href="case-study-royale.html" class="sb-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"/></svg>Royale</a>
+      <a href="case-study-greatgaming.html" class="sb-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="7"/></svg>GreatGaming</a>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-user">
+        <div class="sb-avatar">JS</div>
+        <div class="sb-user-info">
+          <div class="sb-user-name">Jane Smith</div>
+          <div class="sb-user-role">Acme Ventures · Partner</div>
+        </div>
+      </div>
+      <a href="login.html" class="sb-logout">Sign out →</a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <div class="page-header">
+      <h1>Good morning, Jane.</h1>
+      <p>Investor portal — last updated 18 February 2025</p>
+    </div>
+
+    <div class="conf-notice">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      All content in this portal is strictly confidential and protected under your signed NDA. Do not share, screenshot, or distribute.
+    </div>
+
+    <div class="stats-row">
+      <div class="sr-s"><div class="sr-n">Q4 '24</div><div class="sr-l">Current period</div></div>
+      <div class="sr-s"><div class="sr-n">↑ 34%</div><div class="sr-l">Revenue growth QoQ</div></div>
+      <div class="sr-s"><div class="sr-n">4</div><div class="sr-l">Active products</div></div>
+      <div class="sr-s"><div class="sr-n">$12M+</div><div class="sr-l">ARR (combined portfolio)</div></div>
+    </div>
+
+    <div class="section-label">Confidential Briefings</div>
+    <div class="articles-grid">
+      <a href="#" class="art-card art-featured" onclick="openArt('q4');return false;">
+        <div class="art-top"><span class="art-cat">Quarterly Update</span><span class="art-date">18 Feb 2025</span></div>
+        <div class="art-title">Q4 2024 Portfolio Update: Record revenue quarter and 2025 roadmap preview.</div>
+        <p class="art-excerpt">GHC closes its strongest quarter to date. Profiles.io achieves 500M record milestone, Wardrobe launches in Singapore and Hong Kong, and Royale hits 99.98% uptime across its first full year of operation. Full financials, product metrics, and 2025 priorities inside.</p>
+        <div class="art-foot"><span class="art-tag">Quarterly Update · Confidential</span><svg class="art-arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+
+      <a href="#" class="art-card" onclick="openArt('profiles');return false;">
+        <div class="art-top"><span class="art-cat">Product Update</span><span class="art-date">14 Jan 2025</span></div>
+        <div class="art-title">Profiles.io hits 500M records. What it means and what's next.</div>
+        <p class="art-excerpt">We crossed the 500 million record threshold in December. Here's the full story on how we got there, what our enrichment accuracy looks like at scale, and where we're going in 2025.</p>
+        <div class="art-foot"><span class="art-tag">Profiles · Confidential</span><svg class="art-arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+
+      <a href="#" class="art-card" onclick="openArt('wardrobe');return false;">
+        <div class="art-top"><span class="art-cat">Expansion Update</span><span class="art-date">9 Jan 2025</span></div>
+        <div class="art-title">Wardrobe enters Southeast Asia. Our go-to-market strategy and early data.</div>
+        <p class="art-excerpt">We launched in Singapore and Hong Kong in December with results that exceeded our internal projections. First 30 days of cohort data, our localisation approach, and what's driving early traction.</p>
+        <div class="art-foot"><span class="art-tag">Wardrobe · Confidential</span><svg class="art-arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+
+      <a href="#" class="art-card" onclick="openArt('gg');return false;">
+        <div class="art-top"><span class="art-cat">Partnerships</span><span class="art-date">2 Dec 2024</span></div>
+        <div class="art-title">GreatGaming signs distribution agreements with three Tier-1 operators.</div>
+        <p class="art-excerpt">We've signed distribution agreements with three of the world's top ten gaming operators. Combined GMV exposure exceeds $2.4B annually. Deal terms, revenue structure, and launch timelines inside.</p>
+        <div class="art-foot"><span class="art-tag">GreatGaming · Confidential</span><svg class="art-arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+
+      <a href="#" class="art-card" onclick="openArt('royale');return false;">
+        <div class="art-top"><span class="art-cat">Product Update</span><span class="art-date">18 Nov 2024</span></div>
+        <div class="art-title">Royale 2.0: What we're building for 2025 and why it changes everything.</div>
+        <p class="art-excerpt">The next major version of Royale introduces social gaming, a native sportsbook, and our proprietary RNG certification framework. Early access for strategic partners begins Q1 2025.</p>
+        <div class="art-foot"><span class="art-tag">Royale · Confidential</span><svg class="art-arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+
+      <a href="#" class="art-card" onclick="openArt('fundraise');return false;">
+        <div class="art-top"><span class="art-cat">Financing</span><span class="art-date">5 Nov 2024</span></div>
+        <div class="art-title">GHC's Series A: Why we're raising, what we're building with capital, and how to participate.</div>
+        <p class="art-excerpt">We are opening a $15M Series A round to qualified existing investors and their networks. This briefing outlines our use of proceeds, valuation rationale, and the process for participation.</p>
+        <div class="art-foot"><span class="art-tag">Fundraising · Strictly Confidential</span><svg class="art-arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+const cr=document.getElementById('cr'),crr=document.getElementById('crr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cr.style.left=mx+'px';cr.style.top=my+'px';});
+(function aR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crr.style.left=rx+'px';crr.style.top=ry+'px';requestAnimationFrame(aR);})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>crr.classList.add('h'));el.addEventListener('mouseleave',()=>crr.classList.remove('h'));});
+
+function setTab(el){document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('act'));el.classList.add('act');}
+
+const articles={
+  q4:{cat:'Quarterly Update',date:'18 February 2025',title:'Q4 2024 Portfolio Update: Record revenue quarter and 2025 roadmap preview.',body:`<p>GHC closes its strongest quarter in company history. Combined portfolio ARR crossed $12M in December, driven by Profiles.io's continued enterprise expansion and GreatGaming's new operator agreements.</p><h3>Financial Highlights (Q4 2024)</h3><ul><li>Combined portfolio ARR: $12.2M (+34% QoQ)</li><li>Gross margin: 72% across SaaS products</li><li>Burn rate: $380K/month (down 12% from Q3)</li><li>Runway: 28 months at current burn</li></ul><h3>Product Milestones</h3><ul><li>Profiles.io crossed 500M records in December — the largest contact intelligence database globally</li><li>Wardrobe launched in Singapore and Hong Kong, achieving 4,200 items listed in first 30 days</li><li>Royale achieved 99.98% uptime across full year of operation</li><li>GreatGaming signed three Tier-1 distribution agreements (details in separate briefing)</li></ul><h3>2025 Priorities</h3><p>In 2025 we are focused on three things: (1) scaling Profiles.io enterprise sales, (2) Royale 2.0 launch with social gaming and sportsbook, and (3) GreatGaming's European licensing push. We expect to close Series A by Q2 2025.</p><h3>Next Investor Briefing</h3><p>Our next quarterly call is scheduled for 20 March 2025. Calendar invites will be sent to all portal members. Please reply to this briefing if you'd like to add agenda items.</p>`},
+  profiles:{cat:'Product Update',date:'14 January 2025',title:'Profiles.io hits 500M records. What it means and what\'s next.',body:`<p>In December 2024, Profiles.io crossed the 500 million record threshold — making it, by volume, the world's largest B2B contact intelligence database. This is a significant milestone and we want to give you the full picture on how we got here and what it unlocks.</p><h3>How we got to 500M</h3><p>Our data acquisition strategy combines three channels: licensed partnerships with public record providers, web crawling and enrichment pipelines, and user-contributed verification. Each record passes through our proprietary AI enrichment stack before entering the database, achieving 94% verified email deliverability.</p><h3>What changes at scale</h3><ul><li>Network effects accelerate: each new record improves match quality for all 500M others</li><li>Enterprise pricing power increases significantly — we are now renegotiating three Fortune 500 contracts upward</li><li>Our AI models now have sufficient training data to move into predictive contact scoring</li></ul><h3>2025 Roadmap</h3><p>We are launching Profiles Intelligence in Q1 — a layer on top of the database that provides AI-generated prospect insights, intent signals, and outreach recommendations. We expect this to drive a 40–60% ARPU increase for enterprise customers.</p>`},
+  wardrobe:{cat:'Expansion Update',date:'9 January 2025',title:'Wardrobe enters Southeast Asia. Our go-to-market strategy and early data.',body:`<p>We launched Wardrobe in Singapore and Hong Kong on 1 December 2024. The first 30 days exceeded every internal projection and validated our hypothesis that the Southeast Asian luxury rental market is significantly underserved.</p><h3>30-Day Metrics</h3><ul><li>4,200 items listed across both markets</li><li>1,840 completed rentals in first 30 days</li><li>Average order value: SGD $180 (vs AUD $145 in Australia)</li><li>Lender retention: 78% made a second listing within 14 days</li></ul><h3>What's driving traction</h3><p>Two factors are outperforming our models: (1) lender supply is higher quality than expected — Singapore has a particularly sophisticated fashion consumer base, and (2) our logistics partner in SG is significantly faster than AU, with next-day delivery achieving 91% completion.</p><h3>2025 Expansion Plan</h3><p>We are targeting Tokyo and Seoul in Q2 2025, followed by London in Q3. Each market requires a dedicated logistics partnership and regulatory review. We will brief you on Japan and Korea strategy in the March quarterly call.</p>`},
+  gg:{cat:'Partnerships',date:'2 December 2024',title:'GreatGaming signs distribution agreements with three Tier-1 operators.',body:`<p>We have executed distribution agreements with three of the world's top 10 online gaming operators. Combined, their platforms serve over 12 million active users globally. We cannot name the operators under the terms of our NDAs, but we will share deal economics and launch timelines here.</p><h3>Deal Structure</h3><ul><li>Revenue share: 18–22% of GGR generated by GHC content on each platform</li><li>Minimum guarantees: $400K combined across first 12 months</li><li>Content obligation: 6 new game titles per operator in first year</li><li>Exclusivity: none — we retain rights to distribute content elsewhere</li></ul><h3>Launch Timeline</h3><ul><li>Operator A: Live in Q1 2025 (integration complete)</li><li>Operator B: Live in Q2 2025 (integration in progress)</li><li>Operator C: Live in Q3 2025 (contract executed, integration pending)</li></ul><h3>Revenue Impact</h3><p>At projected player volumes, we expect these three agreements to contribute $2.8–4.2M in annualised revenue by end of 2025, significantly accelerating GreatGaming's path to standalone profitability.</p>`},
+  royale:{cat:'Product Update',date:'18 November 2024',title:'Royale 2.0: What we\'re building for 2025 and why it changes everything.',body:`<p>Royale has had a strong first year — 99.98% uptime, 200+ games, 4.8 App Store rating — but version 1.0 was always a proof of concept. Royale 2.0 is the real product. Here's what we're building and why it fundamentally changes our market position.</p><h3>What's new in 2.0</h3><ul><li>Social gaming layer: friends lists, shared tables, gifting, and leaderboards</li><li>Native sportsbook: in-house built, not white-label, covering 40+ sports at launch</li><li>Royale Wallet: a licensed digital wallet for instant deposits and withdrawals</li><li>Proprietary RNG framework: fully verifiable on-chain, enabling marketing we can't do today</li></ul><h3>Why this matters commercially</h3><p>The social layer increases session time by an estimated 35–50% based on competitor data. The sportsbook opens an entirely new revenue stream — sports betting GGR is 3–4x casino GGR in most regulated markets. Combined, we model a 2.8x increase in ARPU by Q4 2025.</p><h3>Timeline</h3><p>Beta launches Q1 2025 for selected users. Full public launch Q2 2025. Strategic partner early access (including this investor group) opens in January — we'll send access details separately.</p>`},
+  fundraise:{cat:'Financing',date:'5 November 2024',title:'GHC\'s Series A: Why we\'re raising, what we\'re building with capital, and how to participate.',body:`<p>GHC is opening a $15M Series A round. This briefing is available exclusively to existing investors and their direct networks. Please do not share externally — we are not running a broad process at this stage.</p><h3>Why we're raising now</h3><p>We are profitable at the GHC group level, so this is not a survival raise. We are raising to accelerate three specific initiatives that require upfront capital: (1) Profiles.io enterprise sales team buildout, (2) Royale 2.0 development and licensing, and (3) GreatGaming European studio and regulatory costs.</p><h3>Use of Proceeds</h3><ul><li>$6M — Sales &amp; marketing (primarily Profiles.io enterprise)</li><li>$4.5M — Product development (Royale 2.0 + GreatGaming 2 new game titles)</li><li>$3M — Regulatory &amp; legal (EU gaming licences, UK FCA, SG MAS)</li><li>$1.5M — Working capital</li></ul><h3>Valuation &amp; Terms</h3><p>Pre-money valuation: $48M. Structure: SAFE with discount cap. Minimum ticket: $250K. Pro-rata rights available to investors at $1M+. We are targeting close by 28 February 2025.</p><h3>How to Participate</h3><p>Reply to your portal contact or email invest@ghc.io with "Series A Interest" in the subject. We will send full data room access and term sheet within 24 hours.</p>`}
+};
+
+function openArt(id){
+  const a=articles[id];if(!a)return;
+  const html=`<div class="conf-tag"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Confidential — NDA Protected</div>
+<div class="ao-cat">${a.cat}</div>
+<div class="ao-title">${a.title}</div>
+<div class="ao-meta">Published ${a.date} · GHC Investor Portal</div>
+<div class="ao-body">${a.body}</div>`;
+  document.getElementById('artContent').innerHTML=html;
+  document.getElementById('artOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeArt(){
+  document.getElementById('artOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeArt();});
+</script>
+</body>
+</html>
