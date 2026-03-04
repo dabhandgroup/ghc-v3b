@@ -15,12 +15,12 @@ const VENTURES = [
 ];
 
 const TEAM = [
-  { name: "Fotios Tsouklas", role: "Co-Founder & CEO", img: "/images/team/fotios.jpg" },
-  { name: "Daniel Galea", role: "Co-Founder & COO", img: "/images/team/daniel.jpg" },
-  { name: "Head of Product", role: "Product", img: "/images/team/placeholder.jpg" },
-  { name: "Head of Engineering", role: "Engineering", img: "/images/team/placeholder.jpg" },
-  { name: "Head of Growth", role: "Growth", img: "/images/team/placeholder.jpg" },
-  { name: "Head of Finance", role: "Finance", img: "/images/team/placeholder.jpg" },
+  { name: "Fotios Tsouklas", role: "Co-Founder & CEO", img: "/images/team/placeholder.svg" },
+  { name: "Daniel Galea", role: "Co-Founder & COO", img: "/images/team/placeholder.svg" },
+  { name: "Head of Product", role: "Product", img: "/images/team/placeholder.svg" },
+  { name: "Head of Engineering", role: "Engineering", img: "/images/team/placeholder.svg" },
+  { name: "Head of Growth", role: "Growth", img: "/images/team/placeholder.svg" },
+  { name: "Head of Finance", role: "Finance", img: "/images/team/placeholder.svg" },
 ];
 
 const LOCATIONS = [

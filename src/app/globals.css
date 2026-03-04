@@ -385,7 +385,7 @@ nav.main-nav {
   font-family: var(--ff);
   font-size: clamp(40px, 10vw, 68px);
   font-weight: 200;
-  color: rgba(17, 17, 17, 0.4);
+  color: var(--muted2);
   text-decoration: none;
   letter-spacing: -1.5px;
   padding: 10px 0;
