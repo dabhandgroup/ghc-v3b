@@ -5,6 +5,7 @@ import Link from "next/link";
 import LogoFull from "./LogoFull";
 import LogoIcon from "./LogoIcon";
 import CustomSelect from "./CustomSelect";
+import DarkModeToggle from "./DarkModeToggle";
 
 /* ───────── article data ───────── */
 interface Article {
@@ -917,6 +918,9 @@ export default function PortalClient() {
               <div className="sb-user-role">Acme Ventures &middot; Partner</div>
             </div>
           </a>
+          <div className="sb-theme-toggle">
+            <DarkModeToggle />
+          </div>
           <a href="#" className="sb-logout sb-logout-red" onClick={(e) => { e.preventDefault(); setShowLogoutModal(true); }}>
             Sign out &rarr;
           </a>

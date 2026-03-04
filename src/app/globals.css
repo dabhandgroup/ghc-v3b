@@ -2431,7 +2431,7 @@ footer {
 @media(max-width:768px){.fbar,.js{padding-left:22px;padding-right:22px;}.jd-page{padding:120px 22px 60px;}.ph{padding-left:22px!important;padding-right:22px!important;}}
 
 /* ─── LOGIN PAGE ─── */
-.bg-glow{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(124,58,237,.04) 0%,transparent 65%);pointer-events:none;}
+.bg-glow{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(37,99,235,.04) 0%,transparent 65%);pointer-events:none;}
 .card{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;}
 .card-fixed{min-height:100vh;height:100vh;overflow:hidden;}
 @media (max-width:768px){.card-fixed{height:100dvh;}}
@@ -2681,7 +2681,7 @@ select.fi option{background:var(--bg);color:var(--text);}
 
 /* ── Sidebar ── */
 .sidebar {
-  background: #ffffff;
+  background: var(--bg);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -2705,7 +2705,8 @@ select.fi option{background:var(--bg);color:var(--text);}
   left: 0;
   right: 0;
   height: 200px;
-  background: radial-gradient(ellipse 80% 120px at 50% 0%, rgba(17,17,17,0.03) 0%, transparent 70%);
+  background: radial-gradient(ellipse 80% 120px at 50% 0%, var(--border) 0%, transparent 70%);
+  opacity: 0.3;
   pointer-events: none;
 }
 .sb-logo {
@@ -2751,7 +2752,7 @@ select.fi option{background:var(--bg);color:var(--text);}
   border-radius: 3px;
   margin: 0 28px 32px;
   width: fit-content;
-  background: rgba(17,17,17,0.02);
+  background: var(--bg2);
 }
 .sb-open .sb-badge { display: inline-flex; }
 .sb-badge svg { width: 8px; height: 8px; opacity: .6; }
@@ -2819,7 +2820,7 @@ select.fi option{background:var(--bg);color:var(--text);}
 .sb-link:hover,
 .sb-link.active {
   color: var(--text);
-  background: rgba(17,17,17,.04);
+  background: var(--bg2);
 }
 .sb-link.active::before {
   content: "";
@@ -2875,7 +2876,7 @@ select.fi option{background:var(--bg);color:var(--text);}
   height: 36px;
   border-radius: 50%;
   background: linear-gradient(135deg, rgba(107,159,255,0.15), rgba(244,114,182,0.15));
-  border: 1px solid rgba(17,17,17,0.12);
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2951,6 +2952,15 @@ select.fi option{background:var(--bg);color:var(--text);}
   display: none;
 }
 .sb-logout:hover { color: var(--text); }
+.sb-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+}
+.sb-open .sb-theme-toggle {
+  justify-content: flex-start;
+}
 
 /* ── Main Content ── */
 .portal-main {
@@ -3018,7 +3028,7 @@ select.fi option{background:var(--bg);color:var(--text);}
   letter-spacing: 1.8px;
   text-transform: uppercase;
   color: var(--muted2);
-  background: rgba(17,17,17,0.02);
+  background: var(--bg2);
   border: 1px solid var(--border);
   border-radius: 3px;
   padding: 7px 16px;
@@ -3050,7 +3060,7 @@ select.fi option{background:var(--bg);color:var(--text);}
   cursor: pointer;
 }
 .p-quick-card:hover {
-  background: rgba(17,17,17,0.04);
+  background: var(--bg3);
   border-color: var(--border2);
   transform: translateY(-1px);
 }
@@ -3297,7 +3307,7 @@ select.fi option{background:var(--bg);color:var(--text);}
   min-height: 260px;
 }
 .p-art-card:hover {
-  background: #141414;
+  background: var(--bg3);
   border-color: var(--border2);
   transform: translateY(-1px);
 }
@@ -4233,7 +4243,7 @@ select.fi option{background:var(--bg);color:var(--text);}
   align-items: start;
 }
 .kb-column {
-  background: rgba(17,17,17,.02);
+  background: var(--bg2);
   border: 1px solid var(--border);
   border-radius: 8px;
   min-height: 300px;
@@ -4263,7 +4273,7 @@ select.fi option{background:var(--bg);color:var(--text);}
   font-size: 10px;
   font-weight: 300;
   color: var(--muted2);
-  background: rgba(17,17,17,.06);
+  background: var(--bg3);
   padding: 2px 8px;
   border-radius: 10px;
 }
@@ -7498,4 +7508,75 @@ select.fi option{background:var(--bg);color:var(--text);}
 }
 [data-theme="dark"] .lt-mq-logo {
   filter: brightness(0) saturate(100%) invert(1);
+}
+
+/* ── Dark mode: Portal & Auth pages ── */
+[data-theme="dark"] .bg-glow {
+  background: radial-gradient(circle, rgba(59,130,246,.06) 0%, transparent 65%);
+}
+[data-theme="dark"] .card {
+  background: var(--bg);
+}
+[data-theme="dark"] .sidebar {
+  background: var(--bg);
+}
+[data-theme="dark"] .sb-glow {
+  background: radial-gradient(ellipse 80% 120px at 50% 0%, rgba(240,240,242,0.04) 0%, transparent 70%);
+}
+[data-theme="dark"] .sb-avatar {
+  background: var(--bg3);
+  color: var(--muted);
+}
+[data-theme="dark"] .portal-main {
+  background: var(--bg);
+}
+[data-theme="dark"] .cs-trigger {
+  background: rgba(240,240,242,.04) !important;
+  border-color: rgba(240,240,242,.14) !important;
+  color: var(--text) !important;
+}
+[data-theme="dark"] .cs-trigger:hover,
+[data-theme="dark"] .cs-open .cs-trigger {
+  border-color: rgba(240,240,242,.28) !important;
+}
+[data-theme="dark"] .cs-menu {
+  background: var(--bg2) !important;
+  border-color: rgba(240,240,242,.14) !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,.4) !important;
+}
+[data-theme="dark"] .cs-menu::-webkit-scrollbar-thumb {
+  background: rgba(240,240,242,.12);
+}
+[data-theme="dark"] .cs-opt {
+  color: var(--muted) !important;
+}
+[data-theme="dark"] .cs-opt:hover {
+  background: rgba(240,240,242,.06) !important;
+  color: var(--text) !important;
+}
+[data-theme="dark"] .signup-form-inner {
+  background: var(--bg2);
+  border-color: var(--border);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+}
+[data-theme="dark"] .p-stat-card,
+[data-theme="dark"] .p-art-card,
+[data-theme="dark"] .p-project-card,
+[data-theme="dark"] .kb-card {
+  background: var(--bg2);
+  border-color: var(--border);
+}
+[data-theme="dark"] .p-stat-card:hover,
+[data-theme="dark"] .p-art-card:hover {
+  background: var(--bg3);
+}
+[data-theme="dark"] .fb.act,
+[data-theme="dark"] .fb:hover {
+  background: rgba(240,240,242,.04);
+}
+[data-theme="dark"] .cs-footer p {
+  color: rgba(240,240,242,.28);
+}
+[data-theme="dark"] .cs-footer .ft-links a {
+  color: rgba(240,240,242,.36);
 }
