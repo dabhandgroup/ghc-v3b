@@ -3,18 +3,21 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import LogoFull from "./LogoFull";
-import DecodeText from "./DecodeText";
+import DarkModeToggle from "./DarkModeToggle";
+import LanguageToggle from "./LanguageToggle";
+import { useLang } from "./LanguageProvider";
 
 const VENTURES = [
-  { name: "Profiles", href: "/case-study/profiles", logo: "/images/logos/profiles.svg" },
+  { name: "Royale.com", href: "/case-study/royale", logo: "/images/logos/royale.svg" },
   { name: "Wardrobe", href: "/case-study/wardrobe", logo: "/images/logos/wardrobe.svg" },
-  { name: "Royale", href: "/case-study/royale", logo: "/images/logos/royale.svg" },
   { name: "GreatGaming", href: "/case-study/greatgaming", logo: "/images/logos/greatgaming.svg" },
+  { name: "Profiles", href: "/case-study/profiles", logo: "/images/logos/profiles.svg" },
   { name: "Platform One", href: "/case-study/platformone", logo: "/images/logos/platformone-white.png" },
   { name: "Grit Entertainment", href: "/case-study/gritentertainment", logo: "/images/logos/gritentertainment.svg" },
 ];
 
 export default function Header() {
+  const { t } = useLang();
   const [menuOpen, setMenuOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [invDropOpen, setInvDropOpen] = useState(false);
@@ -67,27 +70,31 @@ export default function Header() {
         <div className="mm-bg" />
         <div className="mm-inner">
           <nav className="mm-links">
-            <Link href="/#home" className="mm-a" onClick={closeMenu}>Home</Link>
-            <Link href="/#about" className="mm-a" onClick={closeMenu}>About</Link>
-            <Link href="/#products" className="mm-a" onClick={closeMenu}>Ventures</Link>
+            <Link href="/#home" className="mm-a" onClick={closeMenu}>{t.home}</Link>
+            <Link href="/#about" className="mm-a" onClick={closeMenu}>{t.about}</Link>
+            <Link href="/#products" className="mm-a" onClick={closeMenu}>{t.ventures}</Link>
             <span data-ms-content="!members">
-              <Link href="/investors" className="mm-a" onClick={closeMenu}>Investors</Link>
+              <Link href="/investors" className="mm-a" onClick={closeMenu}>{t.investors}</Link>
             </span>
             <span data-ms-content="members">
-              <Link href="/investor-portal/home" className="mm-a" onClick={closeMenu}>Dashboard</Link>
+              <Link href="/investor-portal/home" className="mm-a" onClick={closeMenu}>{t.dashboard}</Link>
             </span>
-            <Link href="/careers" className="mm-a" onClick={closeMenu}>Careers</Link>
-            <Link href="/press" className="mm-a" onClick={closeMenu}>Press</Link>
+            <Link href="/careers" className="mm-a" onClick={closeMenu}>{t.careers}</Link>
+            <Link href="/press" className="mm-a" onClick={closeMenu}>{t.press}</Link>
           </nav>
+          <div className="mm-controls">
+            <DarkModeToggle />
+            <LanguageToggle />
+          </div>
           <div className="mm-acts" data-ms-content="!members">
             <Link href="/login" className="btn btn-o mm-btn" onClick={closeMenu}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="3" y="11" width="18" height="11" rx="2" />
                 <path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
-              Log in
+              {t.signIn}
             </Link>
-            <Link href="/signup" className="btn btn-s mm-btn" onClick={closeMenu}>Become an investor</Link>
+            <Link href="/signup" className="btn btn-s mm-btn" onClick={closeMenu}>{t.applyNow}</Link>
           </div>
           <div className="mm-acts" data-ms-content="members">
             <Link href="/investor-portal/home" className="btn btn-s mm-btn" onClick={closeMenu}>
@@ -97,7 +104,7 @@ export default function Header() {
                 <rect x="3" y="14" width="7" height="7" rx="1" />
                 <rect x="14" y="14" width="7" height="7" rx="1" />
               </svg>
-              Dashboard
+              {t.dashboard}
             </Link>
           </div>
           <div className="mm-foot">
@@ -113,14 +120,14 @@ export default function Header() {
           <LogoFull className="logo-full" />
         </Link>
         <ul className="nav-center">
-          <li><Link href="/#home"><DecodeText>Home</DecodeText></Link></li>
-          <li><Link href="/#about"><DecodeText>About</DecodeText></Link></li>
+          <li><Link href="/#home">{t.home}</Link></li>
+          <li><Link href="/#about">{t.about}</Link></li>
           <li
             className="nav-ventures-li"
             onMouseEnter={openMega}
             onMouseLeave={closeMega}
           >
-            <Link href="/#products"><DecodeText>Ventures</DecodeText></Link>
+            <Link href="/#products">{t.ventures}</Link>
             <div className={`v-drop${megaOpen ? " v-drop-open" : ""}`}>
               {VENTURES.map((v) => (
                 <Link
@@ -135,14 +142,16 @@ export default function Header() {
                 </Link>
               ))}
               <Link href="/#products" className="v-drop-all" onClick={() => setMegaOpen(false)}>
-                View all ventures &rarr;
+                {t.viewAllVentures} &rarr;
               </Link>
             </div>
           </li>
-          <li><Link href="/careers"><DecodeText>Careers</DecodeText></Link></li>
-          <li><Link href="/press"><DecodeText>Press</DecodeText></Link></li>
+          <li><Link href="/careers">{t.careers}</Link></li>
+          <li><Link href="/press">{t.press}</Link></li>
         </ul>
         <div className="nav-right">
+          <LanguageToggle />
+          <DarkModeToggle />
           <span data-ms-content="!members">
             <div
               className="nav-inv-wrap"
@@ -154,7 +163,7 @@ export default function Header() {
                   <rect x="3" y="11" width="18" height="11" rx="2" />
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
-                <DecodeText>Investors</DecodeText>
+                {t.investors}
                 <svg className="nav-inv-chev" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
@@ -166,7 +175,7 @@ export default function Header() {
                     <polyline points="10 17 15 12 10 7" />
                     <line x1="15" y1="12" x2="3" y2="12" />
                   </svg>
-                  Sign In
+                  {t.signIn}
                 </Link>
                 <Link href="/signup" className="nav-inv-drop-item" onClick={() => setInvDropOpen(false)}>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -175,7 +184,7 @@ export default function Header() {
                     <line x1="20" y1="8" x2="20" y2="14" />
                     <line x1="23" y1="11" x2="17" y2="11" />
                   </svg>
-                  Apply Now
+                  {t.applyNow}
                 </Link>
               </div>
             </div>
@@ -188,10 +197,10 @@ export default function Header() {
                 <rect x="3" y="14" width="7" height="7" rx="1" />
                 <rect x="14" y="14" width="7" height="7" rx="1" />
               </svg>
-              <DecodeText>Dashboard</DecodeText>
+              {t.dashboard}
             </Link>
           </span>
-          <Link href="/contact" className="nav-cta nav-cta-contact">Contact</Link>
+          <Link href="/contact" className="nav-cta nav-cta-contact">{t.contact}</Link>
           <button
             className={`hamb${menuOpen ? " x" : ""}`}
             onClick={() => setMenuOpen(!menuOpen)}

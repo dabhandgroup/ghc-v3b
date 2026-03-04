@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import DecodeButtons from "@/components/DecodeButtons";
 import FloatingWidget from "@/components/FloatingWidget";
 import ScrollToTop from "@/components/ScrollToTop";
+import ThemeProvider from "@/components/ThemeProvider";
+import LanguageProvider from "@/components/LanguageProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "GHC — Building the Future",
+  title: "GHC — Companies Connecting Commerce",
   description:
     "We build apps that shape the future of entertainment, data, fashion, and gaming. Australian-based tech company creating disruptive products with global reach.",
   icons: {
     icon: "/favicon.ico",
   },
   openGraph: {
-    title: "GHC — Building the Future",
+    title: "GHC — Companies Connecting Commerce",
     description:
       "We build apps that shape the future of entertainment, data, fashion, and gaming.",
     type: "website",
@@ -24,13 +25,13 @@ export const metadata: Metadata = {
         url: "/images/ghc-opengraph.jpg",
         width: 1200,
         height: 630,
-        alt: "GHC — Building the Future",
+        alt: "GHC — Companies Connecting Commerce",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "GHC — Building the Future",
+    title: "GHC — Companies Connecting Commerce",
     description:
       "We build apps that shape the future of entertainment, data, fashion, and gaming.",
     images: ["/images/ghc-opengraph.jpg"],
@@ -43,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -61,12 +62,20 @@ export default function RootLayout({
           src="https://static.memberstack.com/scripts/v2/memberstack.js"
           strategy="beforeInteractive"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('ghc-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark')}}catch(e){}})()`,
+          }}
+        />
       </head>
       <body>
-        <ScrollToTop />
-        <DecodeButtons />
-        {children}
-        <FloatingWidget />
+        <ThemeProvider>
+          <LanguageProvider>
+            <ScrollToTop />
+            {children}
+            <FloatingWidget />
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
