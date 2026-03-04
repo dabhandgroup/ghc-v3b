@@ -151,7 +151,7 @@ export default function Header() {
         </ul>
         <div className="nav-right">
           <LanguageToggle />
-          <DarkModeToggle />
+          <span className="nav-theme-desktop"><DarkModeToggle /></span>
           <span data-ms-content="!members">
             <div
               className="nav-inv-wrap"

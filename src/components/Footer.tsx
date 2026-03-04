@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import LogoFull from "./LogoFull";
+import DarkModeToggle from "./DarkModeToggle";
 import { useLang } from "./LanguageProvider";
 
 export default function Footer() {
@@ -11,8 +12,11 @@ export default function Footer() {
     <footer>
       <div className="ft-g">
         <div className="ft-brand">
-          <LogoFull fill="rgba(17,17,17,.85)" />
+          <LogoFull />
           <p>Building disruptive ventures in entertainment, data, fashion, gaming, and nightlife. Australian-made. Globally deployed.</p>
+          <div className="ft-theme-toggle">
+            <DarkModeToggle />
+          </div>
         </div>
         <div className="ft-col">
           <h5>{t.ventures}</h5>
