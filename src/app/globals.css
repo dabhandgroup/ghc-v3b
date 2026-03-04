@@ -3593,17 +3593,43 @@ select.fi option{background:var(--bg);color:var(--text);}
 .cs-body-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;}
 .cs-images-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
 .cs-outcomes-grid{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;}
-.cs-cta-section{padding:100px 44px;background:var(--bg2);text-align:center;}
+/* ── Mid-page interest banner ── */
+.cs-mid-banner{padding:0 44px;border-bottom:1px solid var(--border);}
+.cs-mid-banner-inner{display:flex;align-items:center;justify-content:space-between;gap:32px;padding:40px 0;flex-wrap:wrap;}
+.cs-mid-banner-copy{flex:1;min-width:260px;}
+.cs-mid-banner-title{font-family:var(--ff);font-weight:300;font-size:clamp(20px,3vw,28px);letter-spacing:-0.8px;margin-bottom:8px;}
+.cs-mid-banner-desc{font-family:var(--ff);font-size:14px;font-weight:300;color:var(--muted);line-height:1.6;}
+.cs-mid-banner-action{flex-shrink:0;}
+
+/* ── CTA section (now interest form) ── */
+.cs-cta-section{padding:100px 44px;background:var(--bg2);}
 .cs-cta-title{font-family:var(--ff);font-weight:200;font-size:clamp(36px,6vw,72px);letter-spacing:-2px;margin-bottom:20px;}
 .cs-cta-desc{font-size:16px;color:var(--muted);margin-bottom:40px;}
 .cs-cta-acts{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+
+/* ── Interest form grid (case study CTA) ── */
+.cs-interest-grid{display:grid;grid-template-columns:5fr 6fr;gap:80px;align-items:start;}
+.cs-interest-info{text-align:left;}
+.cs-interest-heading{font-family:var(--ff);font-weight:200;font-size:clamp(28px,4vw,48px);letter-spacing:-2px;line-height:1.05;margin-bottom:20px;}
+.cs-interest-sub{font-family:var(--ff);font-size:15px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:28px;}
+.cs-interest-feats{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.cs-interest-feat{display:flex;align-items:center;gap:10px;font-family:var(--ff);font-size:13px;font-weight:300;color:var(--muted);}
+.cs-interest-feat svg{color:var(--accent);flex-shrink:0;}
+.cs-interest-login{font-family:var(--ff);font-size:12px;font-weight:300;color:var(--muted2);}
+.cs-interest-login a{color:var(--muted);text-decoration:underline;transition:color .2s;}
+.cs-interest-login a:hover{color:var(--text);}
+.cs-interest-form-inner{border:1px solid var(--border2);border-radius:8px;background:var(--bg);padding:40px 36px;box-shadow:0 2px 16px rgba(0,0,0,0.06);}
+.cs-interest-form-inner h3{font-family:var(--ff);font-weight:300;font-size:20px;letter-spacing:-.5px;margin-bottom:24px;}
+.cs-interest-done{display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--accent);}
+.cs-interest-done svg{width:32px;height:32px;}
 @media(max-width:768px){
   .cs-nav{padding:0 22px;}
   .cs-nav .lsvg{display:none;}
   .cs-nav .lion{display:block;}
-  .cs-header,.cs-section,.cs-section-sm,.cs-cta-section{padding-left:22px;padding-right:22px;}
+  .cs-header,.cs-section,.cs-section-sm,.cs-cta-section,.cs-mid-banner{padding-left:22px;padding-right:22px;}
   .ph,.summary-s,.body-s,.outcomes-s,.tech-s,.cs-cta{padding-left:22px;padding-right:22px;}
-  .cs-summary-grid,.cs-body-grid,.cs-outcomes-grid{grid-template-columns:1fr;gap:40px;}
+  .cs-summary-grid,.cs-body-grid,.cs-outcomes-grid,.cs-interest-grid{grid-template-columns:1fr;gap:40px;}
+  .cs-interest-form-inner{padding:28px 24px;}
   .cs-images-grid{grid-template-columns:1fr;}
   .sum-grid,.body-grid,.out-grid{grid-template-columns:1fr;gap:40px;}
   .imgs-s{grid-template-columns:1fr;}
@@ -7554,7 +7580,8 @@ select.fi option{background:var(--bg);color:var(--text);}
   background: rgba(240,240,242,.06) !important;
   color: var(--text) !important;
 }
-[data-theme="dark"] .signup-form-inner {
+[data-theme="dark"] .signup-form-inner,
+[data-theme="dark"] .cs-interest-form-inner {
   background: var(--bg2);
   border-color: var(--border);
   box-shadow: 0 2px 16px rgba(0,0,0,0.2);

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import SmoothScroll from "@/components/SmoothScroll";
+import InterestButton from "@/components/InterestButton";
+import CaseStudyCTA from "@/components/CaseStudyCTA";
 import { caseStudies } from "@/data/case-studies";
 
 interface PageProps {
@@ -29,6 +30,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
   const { slug } = await params;
   const cs = caseStudies[slug];
   if (!cs) notFound();
+
+  const productName = cs.aboutTitle.replace("About ", "");
 
   return (
     <>
@@ -60,7 +63,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
             borderBottom: "1px solid var(--border)", flexWrap: "wrap",
           }}>
             <span style={{ fontFamily: "var(--ff)", fontSize: 11, fontWeight: 300, color: "var(--muted2)", letterSpacing: 1 }}>
-              Product<span style={{ color: "var(--text)", marginLeft: 8 }}>{cs.slug.charAt(0).toUpperCase() + cs.slug.slice(1)}</span>
+              Product<span style={{ color: "var(--text)", marginLeft: 8 }}>{productName}</span>
             </span>
             <span style={{ fontFamily: "var(--ff)", fontSize: 11, fontWeight: 300, color: "var(--muted2)", letterSpacing: 1 }}>
               Category<span style={{ color: "var(--text)", marginLeft: 8 }}>{cs.category}</span>
@@ -92,7 +95,10 @@ export default async function CaseStudyPage({ params }: PageProps) {
             <div className="rv">
               <h2 style={{ fontFamily: "var(--ff)", fontWeight: 200, fontSize: "clamp(28px, 4vw, 48px)", letterSpacing: "-2px", marginBottom: 24 }}>{cs.aboutTitle}</h2>
               <p style={{ fontSize: 16, color: "var(--muted)", lineHeight: 1.9, marginBottom: 20 }}>{cs.about}</p>
-              <a href={cs.url} target="_blank" rel="noopener noreferrer" className="btn btn-o" style={{ marginTop: 8, display: "inline-flex" }}>Visit {cs.urlDisplay} &rarr;</a>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 8 }}>
+                <a href={cs.url} target="_blank" rel="noopener noreferrer" className="btn btn-o" style={{ display: "inline-flex" }}>Visit {cs.urlDisplay} &rarr;</a>
+                <InterestButton projectSlug={cs.slug} projectName={productName} />
+              </div>
             </div>
             <div className="rv d1" style={{
               display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 1,
@@ -131,6 +137,21 @@ export default async function CaseStudyPage({ params }: PageProps) {
           /* eslint-disable-next-line @next/next/no-img-element */
           <img key={img.alt} src={img.src} alt={img.alt} style={{ width: "100%", aspectRatio: "3/2", objectFit: "cover", display: "block" }} loading="lazy" />
         ))}
+      </div>
+
+      {/* MID-PAGE INTEREST BANNER */}
+      <div className="cs-mid-banner">
+        <div className="ct">
+          <div className="cs-mid-banner-inner rv">
+            <div className="cs-mid-banner-copy">
+              <h3 className="cs-mid-banner-title">Interested in investing in {productName}?</h3>
+              <p className="cs-mid-banner-desc">Get exclusive investor access to updates, financials, and co-investment opportunities.</p>
+            </div>
+            <div className="cs-mid-banner-action">
+              <InterestButton projectSlug={cs.slug} projectName={productName} />
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* OUTCOMES */}
@@ -175,17 +196,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
         </div>
       </div>
 
-      {/* CTA */}
-      <div className="cs-cta-section">
-        <div className="ct">
-          <h2 className="rv cs-cta-title">Want to learn more?</h2>
-          <p className="rv d1 cs-cta-desc">Get in touch with the GHC team to discuss partnerships, investment, or collaboration.</p>
-          <div className="rv d2 cs-cta-acts">
-            <a href="mailto:hello@ghc.io" className="btn btn-s">Get in Touch</a>
-            <Link href="/#products" className="btn btn-o">All Products &rarr;</Link>
-          </div>
-        </div>
-      </div>
+      {/* BOTTOM CTA — Apply / Register Interest Form */}
+      <CaseStudyCTA slug={cs.slug} productName={productName} />
 
       <Footer />
     </>
