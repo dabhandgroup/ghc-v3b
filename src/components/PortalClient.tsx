@@ -6,6 +6,7 @@ import LogoFull from "./LogoFull";
 import LogoIcon from "./LogoIcon";
 import CustomSelect from "./CustomSelect";
 import DarkModeToggle from "./DarkModeToggle";
+import { PROJECT_PLANS, type ProjectPlan } from "@/data/project-plans";
 
 /* ───────── article data ───────── */
 interface Article {
@@ -462,7 +463,7 @@ const activeProjects: ActiveProject[] = [
     progress: 68,
     lead: "Engineering",
     target: "Q2 2026",
-    planIds: ["pln_investor-portal-mep90u6c"],
+    planIds: ["pln_profiles-io-82m05sn"],
   },
   {
     id: "ap2",
@@ -474,7 +475,7 @@ const activeProjects: ActiveProject[] = [
     progress: 45,
     lead: "Growth",
     target: "Q2 2026",
-    planIds: ["pln_investor-portal-mep90u6c"],
+    planIds: ["pln_wardrobe-veta0of8"],
   },
   {
     id: "ap3",
@@ -486,7 +487,7 @@ const activeProjects: ActiveProject[] = [
     progress: 55,
     lead: "SRE",
     target: "Q1 2026",
-    planIds: ["pln_investor-portal-mep90u6c"],
+    planIds: ["pln_royale-com-uqi05zf"],
   },
   {
     id: "ap4",
@@ -498,7 +499,7 @@ const activeProjects: ActiveProject[] = [
     progress: 100,
     lead: "Content Ops",
     target: "Q4 2025",
-    planIds: ["pln_investor-portal-mep90u6c"],
+    planIds: ["pln_great-gaming-16v70foj"],
   },
   {
     id: "ap5",
@@ -510,7 +511,7 @@ const activeProjects: ActiveProject[] = [
     progress: 15,
     lead: "Data Eng",
     target: "Q3 2026",
-    planIds: ["pln_investor-portal-mep90u6c"],
+    planIds: ["pln_profiles-io-82m05sn"],
   },
   {
     id: "ap6",
@@ -522,7 +523,7 @@ const activeProjects: ActiveProject[] = [
     progress: 10,
     lead: "ML Team",
     target: "Q2 2026",
-    planIds: ["pln_investor-portal-mep90u6c"],
+    planIds: ["pln_wardrobe-veta0of8"],
   },
   {
     id: "ap7",
@@ -534,7 +535,7 @@ const activeProjects: ActiveProject[] = [
     progress: 30,
     lead: "Platform",
     target: "TBD",
-    planIds: ["pln_investor-portal-mep90u6c"],
+    planIds: ["pln_royale-com-uqi05zf"],
   },
   {
     id: "ap8",
@@ -558,7 +559,7 @@ const activeProjects: ActiveProject[] = [
     progress: 60,
     lead: "Partnerships",
     target: "Q2 2026",
-    planIds: ["pln_investor-portal-mep90u6c"],
+    planIds: ["pln_great-gaming-16v70foj"],
   },
 ];
 
@@ -603,6 +604,7 @@ export default function PortalClient() {
   const [projectView, setProjectView] = useState<"kanban" | "list">("kanban");
   const [projectFilter, setProjectFilter] = useState<string>("all");
   const [memberPlanIds, setMemberPlanIds] = useState<string[]>([]);
+  const [followLoading, setFollowLoading] = useState<string | null>(null);
 
   /* detect Memberstack plan IDs for access control */
   useEffect(() => {
@@ -625,6 +627,24 @@ export default function PortalClient() {
     checkPlans();
     return () => { cancelled = true; };
   }, []);
+
+  /* follow / unfollow a project plan */
+  const handleFollowToggle = useCallback(async (plan: ProjectPlan) => {
+    setFollowLoading(plan.planId);
+    try {
+      const ms = (window as any).$memberstackDom;
+      if (!ms) return;
+      const isFollowing = memberPlanIds.includes(plan.planId);
+      if (isFollowing) {
+        await ms.removePlan({ planId: plan.planId });
+        setMemberPlanIds((prev) => prev.filter((id) => id !== plan.planId));
+      } else {
+        await ms.addPlan({ planId: plan.planId });
+        setMemberPlanIds((prev) => [...prev, plan.planId]);
+      }
+    } catch { /* silently ignore */ }
+    setFollowLoading(null);
+  }, [memberPlanIds]);
 
   /* filter active projects by plan access */
   const visibleProjects = useMemo(() => {
@@ -1029,6 +1049,50 @@ export default function PortalClient() {
                 <div className="p-quick-label">Downloads</div>
                 <div className="p-quick-desc">Reports &amp; decks</div>
               </a>
+            </div>
+
+            {/* ── Follow / Unfollow Projects ── */}
+            <div className="p-follow-section">
+              <div className="section-label">Your Projects</div>
+              <p className="p-follow-desc">Follow projects to receive updates, briefings, and co-investment opportunities for each venture.</p>
+              <div className="p-follow-grid">
+                {PROJECT_PLANS.map((plan) => {
+                  const isFollowing = memberPlanIds.includes(plan.planId);
+                  const isLoading = followLoading === plan.planId;
+                  return (
+                    <div key={plan.planId} className={`p-follow-card${isFollowing ? " p-follow-active" : ""}`}>
+                      <div className="p-follow-card-top">
+                        <div className="p-follow-dot" style={{ background: plan.color }} />
+                        <span className="p-follow-name">{plan.name}</span>
+                      </div>
+                      <button
+                        className={`p-follow-btn${isFollowing ? " p-follow-btn-active" : ""}`}
+                        onClick={() => handleFollowToggle(plan)}
+                        disabled={isLoading}
+                      >
+                        {isLoading ? (
+                          "Processing\u2026"
+                        ) : isFollowing ? (
+                          <>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Following
+                          </>
+                        ) : (
+                          <>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <line x1="12" y1="5" x2="12" y2="19" />
+                              <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                            Follow
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             {/* ── Portfolio Snapshot ── */}

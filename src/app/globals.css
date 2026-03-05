@@ -3097,6 +3097,90 @@ select.fi option{background:var(--bg);color:var(--text);}
   letter-spacing: .2px;
 }
 
+/* ── Follow / Unfollow Projects ── */
+.p-follow-section {
+  margin-bottom: 52px;
+}
+.p-follow-desc {
+  font-family: var(--ff);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.p-follow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.p-follow-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: background .2s, border-color .2s;
+}
+.p-follow-card.p-follow-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 4%, var(--bg2));
+}
+.p-follow-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.p-follow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.p-follow-name {
+  font-family: var(--ff);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.2px;
+  color: var(--text);
+}
+.p-follow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--ff);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  padding: 6px 14px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.p-follow-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.p-follow-btn.p-follow-btn-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+.p-follow-btn.p-follow-btn-active:hover {
+  border-color: rgba(248,113,113,.5);
+  color: rgba(248,113,113,.8);
+}
+.p-follow-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* ── Portfolio Snapshot ── */
 .p-snapshot-section {
   margin-bottom: 52px;
@@ -3485,11 +3569,13 @@ select.fi option{background:var(--bg);color:var(--text);}
   .p-greeting { flex-direction: column; gap: 16px; }
   .p-greeting-right { text-align: left; }
   .p-quick-row { grid-template-columns: repeat(2, 1fr); }
+  .p-follow-grid { grid-template-columns: repeat(2, 1fr); }
   .p-snapshot-grid { grid-template-columns: repeat(2, 1fr); }
   .p-articles-grid { grid-template-columns: 1fr; }
 }
 @media(max-width:600px) {
   .p-quick-row { grid-template-columns: 1fr; }
+  .p-follow-grid { grid-template-columns: 1fr; }
   .p-snapshot-grid { grid-template-columns: 1fr; }
   .ao-inner { padding: 80px 22px 60px; }
   .ao-close { right: 22px; }
