@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { getPlanIdForSlug, GENERIC_PLAN_ID } from "@/data/project-plans";
 
 interface CaseStudyCTAProps {
   slug: string;
@@ -12,6 +13,8 @@ export default function CaseStudyCTA({ slug, productName }: CaseStudyCTAProps) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const projectPlanId = getPlanIdForSlug(slug);
 
   const handleGoogleSignup = async () => {
     setError("");
@@ -24,21 +27,10 @@ export default function CaseStudyCTA({ slug, productName }: CaseStudyCTAProps) {
         return;
       }
       await ms.signupWithProvider({ provider: "google" });
-      // Tag the project interest
+      // Add the project-specific plan after signup
       try {
-        const member = await ms.getCurrentMember();
-        if (member?.data) {
-          const existing = member.data.customFields?.["followed-projects"] || "";
-          const projects = existing ? existing.split(",") : [];
-          if (!projects.includes(slug)) {
-            projects.push(slug);
-            await ms.updateMember({
-              customFields: {
-                "followed-projects": projects.join(","),
-                "primary-interest": productName,
-              },
-            });
-          }
+        if (projectPlanId) {
+          await ms.addPlan({ planId: projectPlanId });
         }
       } catch { /* best-effort */ }
       window.location.href = "/investor-portal/home";
@@ -71,16 +63,22 @@ export default function CaseStudyCTA({ slug, productName }: CaseStudyCTAProps) {
         return;
       }
 
+      // Sign up with generic portal plan
+      const planConnections: { planId: string }[] = [{ planId: GENERIC_PLAN_ID }];
+      // Also add the project-specific plan if available
+      if (projectPlanId) {
+        planConnections.push({ planId: projectPlanId });
+      }
+
       await ms.signupMemberEmailPassword({
         email,
         password,
-        planConnections: [{ planId: "pln_investor-portal-mep90u6c" }],
+        planConnections,
         customFields: {
           "first-name": (fd.get("first-name") as string) || "",
           "last-name": (fd.get("last-name") as string) || "",
           company: (fd.get("company") as string) || "",
           "primary-interest": productName,
-          "followed-projects": slug,
         },
       });
 

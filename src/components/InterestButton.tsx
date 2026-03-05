@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { getPlanIdForSlug, GENERIC_PLAN_ID } from "@/data/project-plans";
 
 interface InterestButtonProps {
   projectSlug: string;
@@ -11,6 +12,24 @@ interface InterestButtonProps {
 export default function InterestButton({ projectSlug, projectName, planId }: InterestButtonProps) {
   const [state, setState] = useState<"idle" | "loading" | "done">("idle");
 
+  const resolvedPlanId = planId || getPlanIdForSlug(projectSlug) || GENERIC_PLAN_ID;
+
+  // Check if user already follows this project on mount
+  useEffect(() => {
+    (async () => {
+      try {
+        const ms = (window as any).$memberstackDom;
+        if (!ms) return;
+        const member = await ms.getCurrentMember();
+        if (!member?.data) return;
+        const plans: any[] = member.data.planConnections || [];
+        if (plans.some((p: any) => p.planId === resolvedPlanId && p.status === "ACTIVE")) {
+          setState("done");
+        }
+      } catch { /* not logged in or ms not ready */ }
+    })();
+  }, [resolvedPlanId]);
+
   const handleClick = useCallback(async () => {
     setState("loading");
     try {
@@ -18,27 +37,19 @@ export default function InterestButton({ projectSlug, projectName, planId }: Int
       if (ms) {
         const member = await ms.getCurrentMember();
         if (member?.data) {
-          // Existing user - follow the project
-          const existing = member.data.customFields?.["followed-projects"] || "";
-          const projects = existing ? existing.split(",") : [];
-          if (!projects.includes(projectSlug)) {
-            projects.push(projectSlug);
-            await ms.updateMember({
-              customFields: { "followed-projects": projects.join(",") },
-            });
-          }
+          // Existing user — add the project-specific plan
+          await ms.addPlan({ planId: resolvedPlanId });
           setState("done");
           return;
         }
       }
       // New user — redirect to signup with project context
-      const signupPlan = planId || "pln_investor-portal-mep90u6c";
-      window.location.href = `/signup?project=${projectSlug}&plan=${signupPlan}`;
+      window.location.href = `/signup?project=${projectSlug}&plan=${resolvedPlanId}`;
     } catch {
       // Fallback: redirect to signup
       window.location.href = `/signup?project=${projectSlug}`;
     }
-  }, [projectSlug, planId]);
+  }, [projectSlug, resolvedPlanId]);
 
   if (state === "done") {
     return (
