@@ -5,12 +5,12 @@ import LogoIcon from "./LogoIcon";
 import { useLang } from "./LanguageProvider";
 
 const VENTURES = [
-  { slug: "royale", img: "/images/royale-world.jpg", num: "01", cat: "Online Gaming", name: "Royale.us", desc: "Next-generation online gaming and casino platform. Provably fair, beautifully designed, engineered to redefine what gaming online looks and feels like.", url: "www.royale.us", href: "https://www.royale.us", color: "#2563eb" },
-  { slug: "wardrobe", img: "/images/wardrobe.jpg", num: "02", cat: "Fashion Tech", name: "Wardrobe", desc: "The world\u2019s first peer-to-peer fashion rental marketplace. Repairing a misaligned fashion economy \u2014 making fashion circular, accessible, and purposeful.", url: "www.wardrobe.app", href: "https://www.wardrobe.app", color: "#0ea5e9" },
-  { slug: "greatgaming", img: "/images/gaming.jpg", num: "03", cat: "Live Casino Studio", name: "GreatGaming", desc: "A full-stack live dealer and casino games studio. World-class production, next-gen mechanics, and a game library built to power the biggest operators.", url: "www.greatgaming.com", href: "https://www.greatgaming.com", color: "#0891b2" },
-  { slug: "profiles", img: "/images/profiles.jpg", num: "04", cat: "Data Intelligence", name: "Profiles", desc: "The world\u2019s largest database. Access 500M+ global data records and use AI to instantly find and contact ideal buyers, influencers, or investors \u2014 at any scale.", url: "www.profiles.io", href: "https://www.profiles.io", color: "#2563eb" },
-  { slug: "platformone", img: "/images/platform-1.jpg", num: "05", cat: "Entertainment & Nightlife", name: "Platform One", desc: "Melbourne\u2019s premier nightclub in the historic Banana Alley vaults. Three rooms, world-class production, and a tech-driven operations stack.", url: "www.platformone.com.au", href: "https://www.platformone.com.au", color: "#1d4ed8" },
-  { slug: "gritentertainment", img: "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=800&q=80&fit=crop", num: "06", cat: "Entertainment & Media", name: "Grit Entertainment", desc: "Full-stack entertainment and events company. Large-scale events, artist management, and venue operations across Australia powered by proprietary technology.", url: "www.gritentertainment.com.au", href: "https://gritentertainment.com.au", color: "#3b82f6", hidden: true },
+  { slug: "royale", img: "/images/royale-world.jpg", num: "01", cat: "Online Gaming", name: "Royale.com", desc: "Next-generation online gaming and casino platform. Provably fair, beautifully designed, engineered to redefine what gaming online looks and feels like.", url: "www.royale.com", href: "https://www.royale.com", color: "#2563eb" },
+  { slug: "royale-us", img: "/images/royale-world.jpg", num: "02", cat: "Online Gaming", name: "Royale.us", desc: "Next-generation online gaming and casino platform. Provably fair, beautifully designed, engineered to redefine what gaming online looks and feels like.", url: "www.royale.us", href: "https://www.royale.us", color: "#2563eb" },
+  { slug: "wardrobe", img: "/images/wardrobe.jpg", num: "03", cat: "Fashion Tech", name: "Wardrobe", desc: "The world\u2019s first peer-to-peer fashion rental marketplace. Repairing a misaligned fashion economy \u2014 making fashion circular, accessible, and purposeful.", url: "www.wardrobe.app", href: "https://www.wardrobe.app", color: "#0ea5e9" },
+  { slug: "greatgaming", img: "/images/gaming.jpg", num: "04", cat: "Live Casino Studio", name: "GreatGaming", desc: "A full-stack live dealer and casino games studio. World-class production, next-gen mechanics, and a game library built to power the biggest operators.", url: "www.greatgaming.com", href: "https://www.greatgaming.com", color: "#0891b2" },
+  { slug: "profiles", img: "/images/profiles.jpg", num: "05", cat: "Data Intelligence", name: "Profiles", desc: "The world\u2019s largest database. Access 500M+ global data records and use AI to instantly find and contact ideal buyers, influencers, or investors \u2014 at any scale.", url: "www.profiles.io", href: "https://www.profiles.io", color: "#2563eb" },
+  { slug: "platformone", img: "/images/platform-1.jpg", num: "06", cat: "Entertainment & Nightlife", name: "Platform One", desc: "Melbourne\u2019s premier nightclub in the historic Banana Alley vaults. Three rooms, world-class production, and a tech-driven operations stack.", url: "www.platformone.com.au", href: "https://www.platformone.com.au", color: "#1d4ed8" },
 ];
 
 const TEAM = [
@@ -120,7 +120,7 @@ export default function HomeClient() {
           </div>
           <div className="lt-ventures-grid">
             {VENTURES.map((v, i) => (
-              <div key={v.slug} className={`lt-vc rv${i > 0 ? ` d${Math.min(i, 4)}` : ""}`} style={v.hidden ? { visibility: "hidden" } : undefined}>
+              <div key={v.slug} className={`lt-vc rv${i > 0 ? ` d${Math.min(i, 4)}` : ""}`}>
                 <Link href={`/case-study/${v.slug}`} className="lt-vc-link" />
                 <div className="lt-vc-img-wrap">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

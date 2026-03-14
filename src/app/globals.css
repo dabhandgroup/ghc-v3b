@@ -6936,9 +6936,6 @@ select.fi option{background:var(--bg);color:var(--text);}
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  .lt-vc[style*="visibility: hidden"] {
-    display: none;
-  }
   .lt-vc-img-wrap {
     height: 180px;
   }
