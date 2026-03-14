@@ -8,12 +8,11 @@ import LanguageToggle from "./LanguageToggle";
 import { useLang } from "./LanguageProvider";
 
 const VENTURES = [
-  { name: "Royale.com", href: "/case-study/royale", logo: "/images/logos/royale.svg" },
+  { name: "Royale.us", href: "/case-study/royale", logo: "/images/logos/royale.svg" },
   { name: "Wardrobe", href: "/case-study/wardrobe", logo: "/images/logos/wardrobe.svg" },
   { name: "GreatGaming", href: "/case-study/greatgaming", logo: "/images/logos/greatgaming.svg" },
   { name: "Profiles", href: "/case-study/profiles", logo: "/images/logos/profiles.svg" },
   { name: "Platform One", href: "/case-study/platformone", logo: "/images/logos/platformone-white.png" },
-  { name: "Grit Entertainment", href: "/case-study/gritentertainment", logo: "/images/logos/gritentertainment.svg" },
 ];
 
 export default function Header() {

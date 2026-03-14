@@ -19,12 +19,11 @@ export const GENERIC_PLAN_ID = "pln_investor-portal-mep90u6c";
 
 /** Project-specific plans */
 export const PROJECT_PLANS: ProjectPlan[] = [
-  { slug: "royale",            name: "Royale",             planId: "pln_royale-com-uqi05zf",              color: "#fbbf24", logo: "/images/logos/royale.svg" },
-  { slug: "wardrobe",          name: "Wardrobe",           planId: "pln_wardrobe-veta0of8",               color: "#f472b6", logo: "/images/logos/wardrobe.svg" },
-  { slug: "greatgaming",       name: "GreatGaming",        planId: "pln_great-gaming-16v70foj",           color: "#34d399", logo: "/images/logos/greatgaming.svg" },
-  { slug: "profiles",          name: "Profiles.io",        planId: "pln_profiles-io-82m05sn",             color: "#6b9fff", logo: "/images/logos/profiles.svg" },
-  { slug: "platformone",       name: "Platform One",       planId: "pln_platform-one-avva0fi8",           color: "#a78bfa", logo: "/images/logos/platformone.svg" },
-  { slug: "gritentertainment",  name: "Grit Entertainment", planId: "pln_grit-entertainment-rxtc0oyr",    color: "#f97316", logo: "/images/logos/gritentertainment.svg" },
+  { slug: "royale",       name: "Royale",       planId: "pln_royale-com-uqi05zf",    color: "#fbbf24", logo: "/images/logos/royale.svg" },
+  { slug: "wardrobe",     name: "Wardrobe",     planId: "pln_wardrobe-veta0of8",     color: "#f472b6", logo: "/images/logos/wardrobe.svg" },
+  { slug: "greatgaming",  name: "GreatGaming",  planId: "pln_great-gaming-16v70foj", color: "#34d399", logo: "/images/logos/greatgaming.svg" },
+  { slug: "profiles",     name: "Profiles.io",  planId: "pln_profiles-io-82m05sn",   color: "#6b9fff", logo: "/images/logos/profiles.svg" },
+  { slug: "platformone",  name: "Platform One", planId: "pln_platform-one-avva0fi8", color: "#a78bfa", logo: "/images/logos/platformone.svg" },
 ];
 
 /** Lookup plan ID by project slug */

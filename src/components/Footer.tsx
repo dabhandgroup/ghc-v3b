@@ -21,12 +21,11 @@ export default function Footer() {
         <div className="ft-col">
           <h5>{t.ventures}</h5>
           <ul>
-            <li><Link href="/case-study/royale">Royale.com</Link></li>
+            <li><Link href="/case-study/royale">Royale.us</Link></li>
             <li><Link href="/case-study/wardrobe">Wardrobe</Link></li>
             <li><Link href="/case-study/greatgaming">GreatGaming</Link></li>
             <li><Link href="/case-study/profiles">Profiles</Link></li>
             <li><Link href="/case-study/platformone">Platform One</Link></li>
-            <li><Link href="/case-study/gritentertainment">Grit Entertainment</Link></li>
           </ul>
         </div>
         <div className="ft-col">

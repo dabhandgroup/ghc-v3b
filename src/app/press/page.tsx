@@ -12,11 +12,6 @@ export const metadata: Metadata = {
 
 const RELEASES = [
   {
-    date: "February 2026",
-    title: "GHC Launches Sixth Venture — Grit Entertainment",
-    excerpt: "Full-stack entertainment and events company bringing large-scale events, artist management, and venue operations across Australia.",
-  },
-  {
     date: "January 2026",
     title: "Profiles.io Surpasses 500 Million Global Records",
     excerpt: "The AI-powered data intelligence platform hits a milestone of 500M+ searchable records, cementing its position as the world\u2019s largest database.",

@@ -2125,7 +2125,13 @@ footer {
   .nav-inv {
     font-size: 11px;
     gap: 5px;
-    padding: 7px 14px;
+    padding: 7px 12px;
+  }
+  nav.main-nav {
+    padding: 0 16px;
+  }
+  .nav-right {
+    gap: 8px;
   }
   .logo-full {
     height: 36px;
