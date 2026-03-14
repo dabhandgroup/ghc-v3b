@@ -1,14 +1,8 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
 import LogoIcon from "./LogoIcon";
 import { useLang } from "./LanguageProvider";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import type { Swiper as SwiperType } from "swiper";
-import "swiper/css";
-import "swiper/css/pagination";
 
 const VENTURES = [
   { slug: "royale", img: "/images/royale-world.jpg", num: "01", cat: "Online Gaming", name: "Royale.us", desc: "Next-generation online gaming and casino platform. Provably fair, beautifully designed, engineered to redefine what gaming online looks and feels like.", url: "www.royale.us", href: "https://www.royale.us", color: "#2563eb" },
@@ -16,6 +10,7 @@ const VENTURES = [
   { slug: "greatgaming", img: "/images/gaming.jpg", num: "03", cat: "Live Casino Studio", name: "GreatGaming", desc: "A full-stack live dealer and casino games studio. World-class production, next-gen mechanics, and a game library built to power the biggest operators.", url: "www.greatgaming.com", href: "https://www.greatgaming.com", color: "#0891b2" },
   { slug: "profiles", img: "/images/profiles.jpg", num: "04", cat: "Data Intelligence", name: "Profiles", desc: "The world\u2019s largest database. Access 500M+ global data records and use AI to instantly find and contact ideal buyers, influencers, or investors \u2014 at any scale.", url: "www.profiles.io", href: "https://www.profiles.io", color: "#2563eb" },
   { slug: "platformone", img: "/images/platform-1.jpg", num: "05", cat: "Entertainment & Nightlife", name: "Platform One", desc: "Melbourne\u2019s premier nightclub in the historic Banana Alley vaults. Three rooms, world-class production, and a tech-driven operations stack.", url: "www.platformone.com.au", href: "https://www.platformone.com.au", color: "#1d4ed8" },
+  { slug: "gritentertainment", img: "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=800&q=80&fit=crop", num: "06", cat: "Entertainment & Media", name: "Grit Entertainment", desc: "Full-stack entertainment and events company. Large-scale events, artist management, and venue operations across Australia powered by proprietary technology.", url: "www.gritentertainment.com.au", href: "https://gritentertainment.com.au", color: "#3b82f6", hidden: true },
 ];
 
 const TEAM = [
@@ -46,8 +41,6 @@ const FLOOR_FEATURES = [
 
 export default function HomeClient() {
   const { t } = useLang();
-  const swiperRef = useRef<SwiperType | null>(null);
-  const total = String(VENTURES.length).padStart(2, "0");
 
   return (
     <>
@@ -125,57 +118,33 @@ export default function HomeClient() {
             <h2 className="lt-ventures-h" style={{ whiteSpace: "pre-line" }}>{t.venturesTitle}</h2>
             <p className="lt-ventures-sub">{t.venturesSub}</p>
           </div>
-          <div className="lt-ventures-swiper-wrap rv">
-            <Swiper
-              modules={[Navigation, Pagination]}
-              onSwiper={(sw) => { swiperRef.current = sw; }}
-              spaceBetween={18}
-              slidesPerView={1}
-              pagination={{ clickable: true, el: ".lt-swiper-dots" }}
-              breakpoints={{
-                640: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-              }}
-              className="lt-ventures-swiper"
-            >
-              {VENTURES.map((v) => (
-                <SwiperSlide key={v.slug}>
-                  <div className="lt-vc">
-                    <Link href={`/case-study/${v.slug}`} className="lt-vc-link" />
-                    <div className="lt-vc-img-wrap">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={v.img} alt={v.name} className="lt-vc-img" />
-                      <a href={v.href} target="_blank" rel="noopener noreferrer" className="lt-vc-ext">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
-                      </a>
-                    </div>
-                    <div className="lt-vc-body">
-                      <div className="lt-vc-meta">
-                        <span className="lt-vc-num">{v.num} / {total}</span>
-                        <span className="lt-vc-cat" style={{ color: v.color }}>{v.cat}</span>
-                      </div>
-                      <h3 className="lt-vc-name">{v.name}</h3>
-                      <p className="lt-vc-desc">{v.desc}</p>
-                      <div className="lt-vc-foot">
-                        <span className="lt-vc-url">{v.url}</span>
-                        <span className="lt-vc-arrow">
-                          <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" /></svg>
-                        </span>
-                      </div>
-                    </div>
+          <div className="lt-ventures-grid">
+            {VENTURES.map((v, i) => (
+              <div key={v.slug} className={`lt-vc rv${i > 0 ? ` d${Math.min(i, 4)}` : ""}`} style={v.hidden ? { visibility: "hidden" } : undefined}>
+                <Link href={`/case-study/${v.slug}`} className="lt-vc-link" />
+                <div className="lt-vc-img-wrap">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={v.img} alt={v.name} className="lt-vc-img" />
+                  <a href={v.href} target="_blank" rel="noopener noreferrer" className="lt-vc-ext">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
+                  </a>
+                </div>
+                <div className="lt-vc-body">
+                  <div className="lt-vc-meta">
+                    <span className="lt-vc-num">{v.num} / 06</span>
+                    <span className="lt-vc-cat" style={{ color: v.color }}>{v.cat}</span>
                   </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <div className="lt-swiper-nav">
-              <button className="lt-swiper-btn" onClick={() => swiperRef.current?.slidePrev()} aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-              </button>
-              <div className="lt-swiper-dots" />
-              <button className="lt-swiper-btn" onClick={() => swiperRef.current?.slideNext()} aria-label="Next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-              </button>
-            </div>
+                  <h3 className="lt-vc-name">{v.name}</h3>
+                  <p className="lt-vc-desc">{v.desc}</p>
+                  <div className="lt-vc-foot">
+                    <span className="lt-vc-url">{v.url}</span>
+                    <span className="lt-vc-arrow">
+                      <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" /></svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
