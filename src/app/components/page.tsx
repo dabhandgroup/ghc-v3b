@@ -279,7 +279,7 @@ export default function ComponentsPage() {
                 category: "Data Intelligence",
                 title: "Profiles",
                 desc: "The world\u2019s largest contact database. Access 500M+ global records with AI-powered search.",
-                url: "profiles.io",
+                url: "www.profiles.io",
                 color: "#3b82f6",
                 bgClass: "th-p",
                 art: <ProfilesArt />,
@@ -289,7 +289,7 @@ export default function ComponentsPage() {
                 category: "Fashion Tech",
                 title: "Wardrobe",
                 desc: "The world\u2019s first peer-to-peer fashion rental marketplace. Making fashion circular and accessible.",
-                url: "wardrobe.world",
+                url: "www.wardrobe.app",
                 color: "#d97706",
                 bgClass: "th-w",
                 art: <WardrobeArt />,
@@ -299,7 +299,7 @@ export default function ComponentsPage() {
                 category: "Online Gaming",
                 title: "Royale",
                 desc: "Next-generation gaming platform. Provably fair, beautifully designed, engineered for the future.",
-                url: "royale.world",
+                url: "www.royale.us",
                 color: "#a78bfa",
                 bgClass: "th-r",
                 art: <RoyaleArt />,
@@ -309,7 +309,7 @@ export default function ComponentsPage() {
                 category: "Live Casino Studio",
                 title: "GreatGaming",
                 desc: "Full-stack live dealer studio. Broadcast-grade production powering the biggest operators on earth.",
-                url: "greatgaming.io",
+                url: "www.greatgaming.com",
                 color: "#22d3ee",
                 bgClass: "th-g",
                 art: <GreatGamingArt />,
@@ -493,7 +493,7 @@ export default function ComponentsPage() {
                 <h3>Profiles</h3>
                 <p>The world&apos;s largest database. Access 500M+ global data records.</p>
                 <div className="pc-ft">
-                  <span className="pc-url">profiles.io</span>
+                  <span className="pc-url">www.profiles.io</span>
                   <span className="pc-arr"><svg viewBox="0 0 24 24" fill="none" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></span>
                 </div>
               </div>
