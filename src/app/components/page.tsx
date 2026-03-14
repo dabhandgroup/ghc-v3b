@@ -337,7 +337,7 @@ export default function ComponentsPage() {
             ))}
           </div>
           <div style={{ marginTop: 20, display: "flex", gap: 24, flexWrap: "wrap" }}>
-            {["SVG art per venture", "Case study links", "Category metadata", "Hover transitions", "6 ventures total"].map((t) => (
+            {["SVG art per venture", "Case study links", "Category metadata", "Hover transitions", "5 ventures total"].map((t) => (
               <span key={t} style={{
                 fontFamily: "var(--ff)", fontSize: 10, fontWeight: 300, letterSpacing: ".5px",
                 padding: "5px 12px", border: "1px solid var(--border)", borderRadius: 2, color: "var(--muted2)",
