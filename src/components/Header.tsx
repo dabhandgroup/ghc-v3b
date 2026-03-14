@@ -134,10 +134,10 @@ export default function Header() {
                   href={v.href}
                   className="v-drop-item"
                   onClick={() => setMegaOpen(false)}
+                  title={v.name}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={v.logo} alt="" className="v-drop-logo" />
-                  {v.name}
+                  <img src={v.logo} alt={v.name} className="v-drop-logo" />
                 </Link>
               ))}
               <Link href="/#products" className="v-drop-all" onClick={() => setMegaOpen(false)}>

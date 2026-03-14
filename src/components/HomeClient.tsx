@@ -1,9 +1,14 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
 import LogoIcon from "./LogoIcon";
-import InterestButton from "./InterestButton";
 import { useLang } from "./LanguageProvider";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
 
 const VENTURES = [
   { slug: "royale", img: "/images/royale-world.jpg", num: "01", cat: "Online Gaming", name: "Royale.us", desc: "Next-generation online gaming and casino platform. Provably fair, beautifully designed, engineered to redefine what gaming online looks and feels like.", url: "www.royale.us", href: "https://www.royale.us", color: "#2563eb" },
@@ -41,6 +46,8 @@ const FLOOR_FEATURES = [
 
 export default function HomeClient() {
   const { t } = useLang();
+  const swiperRef = useRef<SwiperType | null>(null);
+  const total = String(VENTURES.length).padStart(2, "0");
 
   return (
     <>
@@ -118,36 +125,57 @@ export default function HomeClient() {
             <h2 className="lt-ventures-h" style={{ whiteSpace: "pre-line" }}>{t.venturesTitle}</h2>
             <p className="lt-ventures-sub">{t.venturesSub}</p>
           </div>
-          <div className="lt-ventures-grid">
-            {VENTURES.map((v, i) => (
-              <div key={v.slug} className={`lt-vc rv${i > 0 ? ` d${Math.min(i, 4)}` : ""}`}>
-                <Link href={`/case-study/${v.slug}`} className="lt-vc-link" />
-                <div className="lt-vc-img-wrap">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={v.img} alt={v.name} className="lt-vc-img" />
-                  <a href={v.href} target="_blank" rel="noopener noreferrer" className="lt-vc-ext">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
-                  </a>
-                </div>
-                <div className="lt-vc-body">
-                  <div className="lt-vc-meta">
-                    <span className="lt-vc-num">{v.num} / 06</span>
-                    <span className="lt-vc-cat" style={{ color: v.color }}>{v.cat}</span>
+          <div className="lt-ventures-swiper-wrap rv">
+            <Swiper
+              modules={[Navigation, Pagination]}
+              onSwiper={(sw) => { swiperRef.current = sw; }}
+              spaceBetween={18}
+              slidesPerView={1}
+              pagination={{ clickable: true, el: ".lt-swiper-dots" }}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              className="lt-ventures-swiper"
+            >
+              {VENTURES.map((v) => (
+                <SwiperSlide key={v.slug}>
+                  <div className="lt-vc">
+                    <Link href={`/case-study/${v.slug}`} className="lt-vc-link" />
+                    <div className="lt-vc-img-wrap">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={v.img} alt={v.name} className="lt-vc-img" />
+                      <a href={v.href} target="_blank" rel="noopener noreferrer" className="lt-vc-ext">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
+                      </a>
+                    </div>
+                    <div className="lt-vc-body">
+                      <div className="lt-vc-meta">
+                        <span className="lt-vc-num">{v.num} / {total}</span>
+                        <span className="lt-vc-cat" style={{ color: v.color }}>{v.cat}</span>
+                      </div>
+                      <h3 className="lt-vc-name">{v.name}</h3>
+                      <p className="lt-vc-desc">{v.desc}</p>
+                      <div className="lt-vc-foot">
+                        <span className="lt-vc-url">{v.url}</span>
+                        <span className="lt-vc-arrow">
+                          <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" /></svg>
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="lt-vc-name">{v.name}</h3>
-                  <p className="lt-vc-desc">{v.desc}</p>
-                  <div className="lt-vc-foot">
-                    <span className="lt-vc-url">{v.url}</span>
-                    <span className="lt-vc-arrow">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" /></svg>
-                    </span>
-                  </div>
-                  <div className="lt-vc-interest">
-                    <InterestButton projectSlug={v.slug} projectName={v.name} />
-                  </div>
-                </div>
-              </div>
-            ))}
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div className="lt-swiper-nav">
+              <button className="lt-swiper-btn" onClick={() => swiperRef.current?.slidePrev()} aria-label="Previous">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+              </button>
+              <div className="lt-swiper-dots" />
+              <button className="lt-swiper-btn" onClick={() => swiperRef.current?.slideNext()} aria-label="Next">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -166,7 +194,7 @@ export default function HomeClient() {
       <div className="lt-stats">
         <div className="lt-stats-grid">
           <div className="lt-stat rv"><div className="lt-stat-n">500M<span className="lt-stat-sup">+</span></div><div className="lt-stat-d">{t.stat1Label}</div></div>
-          <div className="lt-stat rv d1"><div className="lt-stat-n">6<span className="lt-stat-sup">&times;</span></div><div className="lt-stat-d">{t.stat2Label}</div></div>
+          <div className="lt-stat rv d1"><div className="lt-stat-n">5<span className="lt-stat-sup">&times;</span></div><div className="lt-stat-d">{t.stat2Label}</div></div>
           <div className="lt-stat rv d2"><div className="lt-stat-n">1<span className="lt-stat-sup">st</span></div><div className="lt-stat-d">{t.stat3Label}</div></div>
           <div className="lt-stat rv d3"><div className="lt-stat-n">AU</div><div className="lt-stat-d">{t.stat4Label}</div></div>
         </div>
